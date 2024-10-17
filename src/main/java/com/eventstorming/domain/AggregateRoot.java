@@ -340,7 +340,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                 if(isVO == true){
                     return "@Embedded"
                 }else{
-                    if(className == name){
+                    if(className === name){
                         return "@Enumerated(EnumType.STRING)"
                     }else{
                         return "@Embedded"
