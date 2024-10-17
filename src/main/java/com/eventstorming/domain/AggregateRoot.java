@@ -331,7 +331,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
 window.$HandleBars.registerHelper('checkFieldType', function (className, isVO) {
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
-           className==="Double" || className==="Double" || className==="Long" || className==="Date"){
+           className==="Double" || className==="Double" || className==="Long" || className==="Date" || className==="BigDecimal"){
                 return
         }else {
             if(className.includes("List")){
