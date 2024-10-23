@@ -28,7 +28,7 @@ window.$HandleBars.registerHelper('checkClassName', function (className) {
     var less = "<";
     var greater = ">";
     if(className.includes("List")){
-        var value = className[className.find('<')+1:className.find('>')]
+        var value = className.substring(className.indexOf('<') + 1, className.indexOf('>'));
         return "List" + less + value + greater;
     }else{
         return className;
