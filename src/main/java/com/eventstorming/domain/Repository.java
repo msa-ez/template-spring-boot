@@ -24,7 +24,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
         "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase namePascalCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
-({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
+({{#queryParameters}}{{#checkParameter className namePascalCase}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
 {{/attached}}
 }
@@ -70,8 +70,8 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
     }
   })
 
-  window.$HandleBars.registerHelper('checkParameter', function (parameter) {
-    if(parameter.className == 'String' || parameter.className == 'Boolean' || parameter.className == 'Long' || parameter.className == 'Integer' || parameter.className == 'Double' || parameter.className == parameter.namePascalCase){
+  window.$HandleBars.registerHelper('checkParameter', function (type, name) {
+    if(type == 'String' || type == 'Boolean' || type == 'Long' || type == 'Integer' || type == 'Double' || type == name){
       return options.fn(this);
     }else{
       return options.inverse(this);
