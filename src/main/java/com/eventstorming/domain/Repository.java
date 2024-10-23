@@ -70,7 +70,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
     }
   })
 
-  window.$HandleBars.registerHelper('checkParameter', function (parameter) {
+  window.$HandleBars.registerHelper('checkParameter', function (parameter, options) {
     if(parameter.className == 'String' || parameter.className == 'Boolean' || parameter.className == 'Long' || parameter.className == 'Integer' || parameter.className == 'Double' || parameter.className == parameter.namePascalCase){
       return options.fn(this);
     }else{
