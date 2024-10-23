@@ -24,7 +24,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
         "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase namePascalCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
-({{#queryParameters}}{{#checkParameter className namePascalCase}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
+({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
 {{/attached}}
 }
@@ -61,7 +61,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
       return `(:${value} is null or ${aggName}.${value} like %:${value}%)`
     }else if(className == 'Boolean'){
       return `(${aggName}.${value} = :${value})`
-    }else if(className == 'Long' || className == 'Integer' className == 'Double'){
+    }else if(className == 'Long' || className == 'Integer' || className == 'Double' || className == 'Float' || className == 'BigDecimal'){
       return `(:${value} is null or ${aggName}.${value} = :${value})`
     }else if(className == pascalValue){
       return `(${aggName}.${value} = :${value})`
@@ -70,8 +70,8 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
     }
   })
 
-  window.$HandleBars.registerHelper('checkParameter', function (type, name) {
-    if(type == 'String' || type == 'Boolean' || type == 'Long' || type == 'Integer' || type == 'Double' || type == name){
+  window.$HandleBars.registerHelper('checkParameter', function (parameter) {
+    if(parameter.className == 'String' || parameter.className == 'Boolean' || parameter.className == 'Long' || parameter.className == 'Integer' || parameter.className == 'Double' || parameter.className == parameter.namePascalCase){
       return options.fn(this);
     }else{
       return options.inverse(this);
