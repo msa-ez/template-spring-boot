@@ -22,7 +22,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
-        "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase namePascalCase isVO}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
+        "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase namePascalCase isVO this}}{{/checkParameterType}}{{/queryParameters}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
 ({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
@@ -56,17 +56,25 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
   window.$HandleBars.registerHelper('isDate', function (className) {
     return (className.endsWith("Date"))
   })
-  window.$HandleBars.registerHelper('checkParameterType', function (className, value, aggName, pascalValue, isVO) {
-    if(className == 'String'){
-      return `(:${value} is null or ${aggName}.${value} like %:${value}%)`
-    }else if(className == 'Boolean'){
-      return `(${aggName}.${value} = :${value})`
-    }else if(className == 'Long' || className == 'Integer' || className == 'Double' || className == 'Float' || className == 'BigDecimal'){
-      return `(:${value} is null or ${aggName}.${value} = :${value})`
-    }else if(className == pascalValue && !isVO){
-      return `(${aggName}.${value} = :${value})`
-    }else{
-      return
+  window.$HandleBars.registerHelper('checkParameterType', function (className, value, aggName, pascalValue, isVO, parameter) {
+    var query = ''
+    for( var i = 0; i < parameter.length; i++){
+      if( i < parameter[i].length){
+        query = "and"
+      }else{
+        query = ''
+      }
+      if(parameter[i].className == 'String'){
+        return `(:${value} is null or ${aggName}.${value} like %:${value}%)` + query
+      }else if(parameter[i].className == 'Boolean'){
+        return `(${aggName}.${value} = :${value})` + query
+      }else if(parameter[i].className == 'Long' || parameter[i].className == 'Integer' || parameter[i].className == 'Double' || parameter[i].className == 'Float' || className == 'BigDecimal'){
+        return `(:${value} is null or ${aggName}.${value} = :${value})` + query
+      }else if(parameter[i].className == pascalValue && !isVO){
+        return `(${aggName}.${value} = :${value})` + query
+      }else{
+        return
+      }
     }
   })
 
