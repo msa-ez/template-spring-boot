@@ -56,7 +56,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
   window.$HandleBars.registerHelper('isDate', function (className) {
     return (className.endsWith("Date"))
   })
-  window.$HandleBars.registerHelper('checkParameterType', function (parameter, className) {
+  window.$HandleBars.registerHelper('checkParameterType', function (parameter, aggName) {
     var query = ''
     for( var i = 0; i < parameter.length; i++){
       if( i < parameter[i].length){
