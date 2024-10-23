@@ -12,7 +12,7 @@ import lombok.Data;
 public class {{namePascalCase}}Query {
 
     {{#queryParameters}}
-    private {{#checkClassName className namePascalCase}}{{/checkClassName}} {{nameCamelCase}};
+    private {{#checkClassName className}}{{/checkClassName}} {{nameCamelCase}};
     {{/queryParameters}}
 }
 <function>
@@ -24,11 +24,12 @@ window.$HandleBars.registerHelper('checkExtend', function (view) {
     }
 });
 
-window.$HandleBars.registerHelper('checkClassName', function (className, name) {
+window.$HandleBars.registerHelper('checkClassName', function (className) {
     var less = "<";
     var greater = ">";
     if(className.includes("List")){
-        return "List" + less + name + greater;
+        var value = className[className.find('<')+1:className.find('>')]
+        return "List" + less + value + greater;
     }else{
         return className;
     }
