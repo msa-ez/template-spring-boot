@@ -60,18 +60,18 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
     var query = ''
     for( var i = 0; i < parameter.length; i++){
       if( i < parameter[i].length){
-        query = "and"
+        query = "and";
       }else{
-        query = ''
+        query = '';
       }
       if(parameter[i].className == 'String'){
-        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${value} like %:${parameter[i].nameCamelCase}%)` + query
+        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${value} like %:${parameter[i].nameCamelCase}%)` + query;
       }else if(parameter[i].className == 'Boolean'){
-        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query
+        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
       }else if(parameter[i].className == 'Long' || parameter[i].className == 'Integer' || parameter[i].className == 'Double' || parameter[i].className == 'Float' || parameter[i].className == 'BigDecimal'){
-        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query
+        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
       }else if(parameter[i].className == parameter[i].namePascalCase && !parameter[i].isVO){
-        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query
+        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
       }else{
         return
       }
