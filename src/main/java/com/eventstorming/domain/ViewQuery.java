@@ -12,7 +12,7 @@ import lombok.Data;
 public class {{namePascalCase}}Query {
 
     {{#queryParameters}}
-    private {{#checkClassName className}}{{/checkClassName}} {{nameCamelCase}};
+    private {{#checkClassName className namePascalCase}}{{/checkClassName}} {{nameCamelCase}};
     {{/queryParameters}}
 }
 <function>
@@ -25,8 +25,10 @@ window.$HandleBars.registerHelper('checkExtend', function (view) {
 });
 
 window.$HandleBars.registerHelper('checkClassName', function (className) {
+    var less = "<";
+    var greater = ">";
     if(className.includes("List")){
-        return className;
+        return "List" + less + namePascalCase + greater;
     }else{
         return className;
     }
