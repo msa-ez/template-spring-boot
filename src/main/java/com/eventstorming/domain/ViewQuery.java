@@ -24,11 +24,11 @@ window.$HandleBars.registerHelper('checkExtend', function (view) {
     }
 });
 
-window.$HandleBars.registerHelper('checkClassName', function (className) {
+window.$HandleBars.registerHelper('checkClassName', function (className, name) {
     var less = "<";
     var greater = ">";
     if(className.includes("List")){
-        return "List" + less + namePascalCase + greater;
+        return "List" + less + name + greater;
     }else{
         return className;
     }
