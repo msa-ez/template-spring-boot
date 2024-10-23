@@ -24,7 +24,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
         "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
-({{#queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
+({{#queryParameters}}{{#checkClassName className}}{{/checkClassName}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
 {{/attached}}
 }
@@ -67,6 +67,17 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
       return `(:${value} is null or ${aggName}.${value} = :${value})`
     }
   })
+
+  window.$HandleBars.registerHelper('checkClassName', function (className) {
+    var less = "<";
+    var greater = ">";
+    if(className.includes("List")){
+        var value = className.substring(className.indexOf('<') + 1, className.indexOf('>'));
+        return "List" + less + value + greater;
+    }else{
+        return className;
+    }
+});
 
   window.$HandleBars.registerHelper('toURL', function (className) {
 
