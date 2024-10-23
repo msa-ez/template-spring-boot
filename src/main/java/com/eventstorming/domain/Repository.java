@@ -22,9 +22,9 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
-        "where{{#checkParameterType queryParameters ../nameCamelCase }}{{/checkParameterType}}")
-       {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
-({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
+        "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
+       {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
+({{#queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
 {{/attached}}
 }
@@ -56,35 +56,15 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
   window.$HandleBars.registerHelper('isDate', function (className) {
     return (className.endsWith("Date"))
   })
-  window.$HandleBars.registerHelper('checkParameterType', function (parameter, aggName) {
-    var query = ''
-    for( var i = 0; i < parameter.length; i++){
-      if( i < parameter[i].length){
-        query = "and";
-      }else{
-        query = '';
-      }
-      if(parameter[i].className == 'String'){
-        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${value} like %:${parameter[i].nameCamelCase}%)` + query;
-      }else if(parameter[i].className == 'Boolean'){
-        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
-      }else if(parameter[i].className == 'Long' || parameter[i].className == 'Integer' || parameter[i].className == 'Double' || parameter[i].className == 'Float' || parameter[i].className == 'BigDecimal'){
-        return `(:${parameter[i].nameCamelCase} is null or ${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
-      }else if(parameter[i].className == parameter[i].namePascalCase && !parameter[i].isVO){
-        return `(${aggName}.${parameter[i].nameCamelCase} = :${parameter[i].nameCamelCase})` + query;
-      }else{
-        return
-      }
-    }
-  })
-
-  window.$HandleBars.registerHelper('checkParameter', function (parameter, options) {
-    var query = ''
-    if(parameter.className == 'String' || parameter.className == 'Boolean' || parameter.className == 'Long' || parameter.className == 'Integer' || parameter.className == 'Double' || parameter.className == parameter.namePascalCase){
-      query = parameter.className + " " + parameter.nameCamelCase
-      return query;
+  window.$HandleBars.registerHelper('checkParameterType', function (className, value, aggName) {
+    if(className == 'String'){
+      return `(:${value} is null or ${aggName}.${value} like %:${value}%)`
+    }else if(className == 'Boolean'){
+      return `(${aggName}.${value} = :${value})`
+    }else if(className == 'Long' || className == 'Integer' || className == 'Double' || className == 'Float' || className == 'BigDecimal'){
+      return `(:${value} is null or ${aggName}.${value} = :${value})`
     }else{
-      return options.inverse(this);
+      return `(:${value} is null or ${aggName}.${value} = :${value})`
     }
   })
 
