@@ -22,9 +22,9 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
-        "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
+        "where{{#queryParameters}}{{#checkParameterType className nameCamelCase ../../nameCamelCase namePascalCase}}{{/checkParameterType}}{{^@last}} and {{/@last}}{{/queryParameters}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
-({{#queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
+({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
 {{/attached}}
 }
@@ -56,13 +56,25 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
   window.$HandleBars.registerHelper('isDate', function (className) {
     return (className.endsWith("Date"))
   })
-  window.$HandleBars.registerHelper('checkParameterType', function (className, value, aggName) {
+  window.$HandleBars.registerHelper('checkParameterType', function (className, value, aggName, pascalValue) {
     if(className == 'String'){
       return `(:${value} is null or ${aggName}.${value} like %:${value}%)`
     }else if(className == 'Boolean'){
       return `(${aggName}.${value} = :${value})`
-    }else if(className == 'Long' || className == 'Integer'){
+    }else if(className == 'Long' || className == 'Integer' className == 'Double'){
       return `(:${value} is null or ${aggName}.${value} = :${value})`
+    }else if(className == pascalValue){
+      return `(${aggName}.${value} = :${value})`
+    }else{
+      return
+    }
+  })
+
+  window.$HandleBars.registerHelper('checkParameter', function (parameter) {
+    if(parameter.className == 'String' || parameter.className == 'Boolean' || parameter.className == 'Long' || parameter.className == 'Integer' || parameter.className == 'Double' || parameter.className == parameter.namePascalCase){
+      return options.fn(this);
+    }else{
+      return options.inverse(this);
     }
   })
 
