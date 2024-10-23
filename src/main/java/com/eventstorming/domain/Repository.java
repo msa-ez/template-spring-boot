@@ -22,7 +22,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
-        "where{{#checkParameterType queryparameters  ../../nameCamelCase }}{{/checkParameterType}}")
+        "where{{#checkParameterType queryParameters ../../nameCamelCase }}{{/checkParameterType}}")
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{apiPath}}{{else}}{{../nameCamelCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
 ({{#checkParameter queryParameters}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/checkParameter}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
@@ -56,7 +56,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
   window.$HandleBars.registerHelper('isDate', function (className) {
     return (className.endsWith("Date"))
   })
-  window.$HandleBars.registerHelper('checkParameterType', function (parameter, className, value, aggName, pascalValue, isVO) {
+  window.$HandleBars.registerHelper('checkParameterType', function (parameter, className) {
     var query = ''
     for( var i = 0; i < parameter.length; i++){
       if( i < parameter[i].length){
