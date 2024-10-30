@@ -2,7 +2,7 @@ forEach: Command
 representativeFor: Command
 fileName: {{namePascalCase}}Command.java
 path: {{boundedContext.name}}/{{{options.packagePath}}}/domain
-except: {{#if isRestRepository}}{{/if}}
+except: {{#defaultVerb this}}{{/defaultVerb}}
 ---
 package {{options.package}}.domain;
 
@@ -22,8 +22,10 @@ public class {{namePascalCase}}Command {
 }
 
 <function>
-window.$HandleBars.registerHelper('except', function (fieldDescriptors) {
-    return (fieldDescriptors && fieldDescriptors.length == 0);
+window.$HandleBars.registerHelper('defaultVerb', function (command) {
+    if(command.isRestRepository){
+        return true;
+    }
 });
 
 window.$HandleBars.registerHelper('checkBigDecimal', function (fieldDescriptors) {
