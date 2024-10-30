@@ -2,7 +2,7 @@ forEach: Command
 representativeFor: Command
 fileName: {{namePascalCase}}Command.java
 path: {{boundedContext.name}}/{{{options.packagePath}}}/domain
-except: {{#defaultVerb this}}{{/defaultVerb}}
+except: {{#isDefaultVerb this}}{{/isDefaultVerb}}
 ---
 package {{options.package}}.domain;
 
@@ -22,7 +22,7 @@ public class {{namePascalCase}}Command {
 }
 
 <function>
-window.$HandleBars.registerHelper('defaultVerb', function (command) {
+window.$HandleBars.registerHelper('isDefaultVerb', function (command) {
     if(command.isRestRepository){
         return true;
     }
