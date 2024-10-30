@@ -271,7 +271,7 @@ window.$HandleBars.registerHelper('isReadModel', function (sticker, options) {
     if(sticker._type.includes("View")){
         return options.fn(this)
     }else{
-        return inverse.fn(this)
+        return options.inverse(this)
     }
 });
 
