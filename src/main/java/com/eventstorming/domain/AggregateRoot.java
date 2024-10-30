@@ -45,6 +45,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#relationCommandInfo}}
     {{#if targetAggregate}}
     {{#targetAggregate}}
+    {{#isReadModel this}}
     {{#if queryOption.multipleResult}}
     {{#if queryOption.useDefaultUri}}
     List<{{aggregate.namePascalCase}}> {{aggregate.nameCamelCase}}List = {{../../../../namePascalCase}}Application.applicationContext
@@ -70,6 +71,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         .{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{nameCamelCase}}Query);
     {{/if}}
     {{/if}}
+    {{/isReadModel}}
     {{/targetAggregate}}
     {{/if}}
     {{/relationCommandInfo}}
@@ -262,6 +264,14 @@ window.$HandleBars.registerHelper('checkBigDecimal', function (fieldDescriptors)
         if(fieldDescriptors[i] && fieldDescriptors[i].className.includes('BigDecimal')){
             return "import java.math.BigDecimal;";
         }
+    }
+});
+
+window.$HandleBars.registerHelper('isReadModel', function (sticker, options) {
+    if(sticker._type.includes("View")){
+        return options.fn(this)
+    }else{
+        return inverse.fn(this)
     }
 });
 
