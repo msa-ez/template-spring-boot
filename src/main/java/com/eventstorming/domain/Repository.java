@@ -17,7 +17,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 //<<< PoEAA / Repository
 @RepositoryRestResource(collectionResourceRel="{{namePlural}}", path="{{namePlural}}")
-public interface {{namePascalCase}}Repository extends PagingAndSortingRepository<{{namePascalCase}}, {{aggregateRoot.keyFieldDescriptor.className}}>{
+public interface {{namePascalCase}}Repository extends PagingAndSortingRepository<{{namePascalCase}}, {{keyFieldDescriptor.className}}>{
 {{#attached 'View' this}}
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
