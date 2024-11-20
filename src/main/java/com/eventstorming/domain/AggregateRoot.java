@@ -338,7 +338,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
     }
 });
 
-window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, isKey) {
+window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey) {
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
            className==="Double" || className==="Double" || className==="Long" || className==="Date" || className ==="BigDecimal"){
