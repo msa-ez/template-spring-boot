@@ -12,7 +12,7 @@ spring:
         - id: {{name}}
           uri: http://localhost:{{portGenerated}}
           predicates:
-            - Path={{#printRoute aggregates}}{{/printRoute}}, {{#printRouteView viewes}}{{/printRouteView}}{{#each aggregates}}{{#each aggregateRoot.entities.relations}}{{#if (isGeneralization targetElement.namePascalCase ../namePascalCase relationType)}}, /{{#toURL sourceElement.nameCamelCase}}{{/toURL}}/**{{/if}}{{/each}}{{/each}}
+            - Path={{#printRoute aggregates}}{{/printRoute}}, {{#printRouteView readModels}}{{/printRouteView}}{{#each aggregates}}{{#each aggregateRoot.entities.relations}}{{#if (isGeneralization targetElement.namePascalCase ../namePascalCase relationType)}}, /{{#toURL sourceElement.nameCamelCase}}{{/toURL}}/**{{/if}}{{/each}}{{/each}}
         {{/boundedContexts}}
         - id: frontend
           uri: http://localhost:8080
@@ -92,7 +92,7 @@ server:
             route = route + "/" + viewes[i].namePlural + "/**"
           }
           else{
-            route = route + "/" +viewes[i].namePlural + "/**, "
+            route = route + "/" + viewes[i].namePlural + "/**, "
           }
         }
 
