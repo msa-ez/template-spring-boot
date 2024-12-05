@@ -110,7 +110,7 @@ fileName: SNSApp.vue
                                         </v-list-item>
                                         <div style="text-align: left; padding:10px 15px 15px 15px; margin-top:-10px;">
                                             <h2>\{{ aggregate.title }}</h2>
-                                            <div>\{{ aggregate }} 화면입니다. </div>
+                                            <div>\{{ aggregate.description }}</div>
                                         </div>
                                     </v-card>
                                 </div>
