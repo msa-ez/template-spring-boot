@@ -1,7 +1,5 @@
 fileName: SNSApp.vue
 ---
-
-
 <template>
     <v-app id="inspire">
         <div>
@@ -63,18 +61,18 @@ fileName: SNSApp.vue
 
     		    {{/aggregates}}
 
-    		    {{#viewes}}
+    		    {{#readModels}}
                     <v-list-item
                         class="px-2"
                         key="{{namePlural}}"
-                        to="{{namePlural}}"
+                        to="/{{boundedContext.namePlural}}/{{namePlural}}"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
                     >
                         {{namePascalCase}}
                     </v-list-item>
-    		    {{/viewes}}
+    		    {{/readModels}}
 		    {{/boundedContexts}}
                 </v-list>
             </v-navigation-drawer>
@@ -112,7 +110,7 @@ fileName: SNSApp.vue
                                         </v-list-item>
                                         <div style="text-align: left; padding:10px 15px 15px 15px; margin-top:-10px;">
                                             <h2>\{{ aggregate.title }}</h2>
-                                            <div>\{{ aggregate.description }}</div>
+                                            <div>\{{ aggregate }} 화면입니다. </div>
                                         </div>
                                     </v-card>
                                 </div>
@@ -158,12 +156,23 @@ export default {
             {{#aggregates}}
             { 
                 title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}', 
-                description: '{{description}}', 
+                description: '{{name}}을 관리하는 화면입니다.', 
                 key: '{{namePlural}}', 
                 route: '/{{boundedContext.namePlural}}/{{namePlural}}',
                 ImageUrl: '{{#if options.rootModel.uiStyle.logoImage}}{{{options.rootModel.uiStyle.logoImage.url}}}{{/if}}',
             },
             {{/aggregates}}
+            {{/boundedContexts}}
+            {{#boundedContexts}}
+            {{#readModels}}
+            { 
+                title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}', 
+                description: '{{name}}을 관리하는 화면입니다.', 
+                key: '{{namePlural}}', 
+                route: '/{{boundedContext.namePlural}}/{{namePlural}}',
+                ImageUrl: '{{#if options.rootModel.uiStyle.logoImage}}{{{options.rootModel.uiStyle.logoImage.url}}}{{/if}}',
+            },
+            {{/readModels}}
             {{/boundedContexts}}
             
         ],

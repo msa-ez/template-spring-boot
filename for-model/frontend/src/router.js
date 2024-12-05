@@ -17,10 +17,10 @@ import {{boundedContext.namePascalCase}}{{namePascalCase}}Manager from "./compon
 import {{boundedContext.namePascalCase}}{{namePascalCase}}Detail from "./components/listers/{{boundedContext.namePascalCase}}{{namePascalCase}}Detail"
     {{/aggregates}}
 
-    {{#viewes}}
+    {{#readModels}}
 import {{namePascalCase}}View from "./components/{{namePascalCase}}View"
 import {{namePascalCase}}ViewDetail from "./components/{{namePascalCase}}ViewDetail"
-    {{/viewes}}
+    {{/readModels}}
 {{/boundedContexts}}
 
 export default new Router({
@@ -41,18 +41,18 @@ export default new Router({
             },
         {{/aggregates}}
 
-        {{#viewes}}
+        {{#readModels}}
             {
-                path: '/{{namePlural}}',
+                path: '/{{boundedContext.namePlural}}/{{namePlural}}',
                 name: '{{namePascalCase}}View',
                 component: {{namePascalCase}}View
             },
             {
-                path: '/{{namePlural}}/:id',
+                path: '/{{boundedContext.namePlural}}/{{namePlural}}/:id',
                 name: '{{namePascalCase}}ViewDetail',
                 component: {{namePascalCase}}ViewDetail
             },
-        {{/viewes}}
+        {{/readModels}}
        {{/boundedContexts}}
 
 
