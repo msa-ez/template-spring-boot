@@ -33,7 +33,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/isKey}}{{/isVO}}
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
-    {{#checkFieldType className isVO namePascalCase isKey}}{{/checkFieldType}}
+    {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
     private {{{className}}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
@@ -338,7 +338,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
     }
 });
 
-window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey) {
+window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, enumField) {
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
            className==="Double" || className==="Double" || className==="Long" || className==="Date" || className ==="BigDecimal"){
