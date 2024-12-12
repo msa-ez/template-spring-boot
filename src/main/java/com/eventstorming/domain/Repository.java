@@ -19,6 +19,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel="{{namePlural}}", path="{{namePlural}}")
 public interface {{namePascalCase}}Repository extends PagingAndSortingRepository<{{namePascalCase}}, {{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}>{
 {{#attached 'View' this}}
+{{#checkReadModelPattern dataProjection}}
 {{#if queryParameters}}    
     @Query(value = "select {{../nameCamelCase}} " +
         "from {{../namePascalCase}} {{../nameCamelCase}} " +
@@ -26,6 +27,7 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
        {{#queryOption}}{{#if multipleResult}}{{#if useDefaultUri}}List<{{../../namePascalCase}}> {{../nameCamelCase}}{{else}}List<{{../../namePascalCase}}> {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{else}}{{#if useDefaultUri}}{{../../namePascalCase}} {{../nameCamelCase}}{{else}}{{../../namePascalCase}} {{#if apiPath}}{{#changeUpper apiPath}}{{/changeUpper}}{{else}}{{../namePascalCase}}{{/if}}{{/if}}{{/if}}{{/queryOption}}
 ({{#queryParameters}}{{#checkClassName className}}{{/checkClassName}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/queryParameters}}{{#queryOption}}{{#if multipleResult}}, Pageable pageable{{/if}}{{/queryOption}});
 {{/if}}
+{{/checkReadModelPattern}}
 {{/attached}}
 }
 <function>
@@ -36,6 +38,13 @@ public interface {{namePascalCase}}Repository extends PagingAndSortingRepository
       if(view.aggregate == me && view.dataProjection=="query-for-aggregate"){
           me.contexts.views.push(view);
       }
+  })
+  window.$HandleBars.registerHelper('checkReadModelPattern', function (pattern, options) {
+    if(pattern == 'query-for-aggregate'){
+        return options.fn(this);
+    } else {
+        options.inverse(this);
+    }
   })
   window.$HandleBars.registerHelper('isNotId', function (className) {
     return (className != 'id')
