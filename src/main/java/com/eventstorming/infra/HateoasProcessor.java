@@ -18,7 +18,7 @@ public class {{namePascalCase}}HateoasProcessor implements RepresentationModelPr
     public EntityModel<{{namePascalCase}}> process(EntityModel<{{namePascalCase}}> model) {
         {{#commands}}
         {{^isRestRepository}}
-        model.add(Link.of(model.getRequiredLink("self").getHref() + "{{#checkMethodType controllerInfo}}{{/checkMethodType}}").withRel("{{controllerInfo.apiPath}}"));
+        model.add(Link.of(model.getRequiredLink("self").getHref() + "{{#checkMethodType controllerInfo 'href'}}{{/checkMethodType}}").withRel("{{#checkMethodType controllerInfo 'withRel'}}{{/checkMethodType}}"));
         {{/isRestRepository}}
         {{/commands}}
 
@@ -43,13 +43,21 @@ public class {{namePascalCase}}HateoasProcessor implements RepresentationModelPr
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkMethodType', function (command) {
+    window.$HandleBars.registerHelper('checkMethodType', function (command, type) {
         var result = '';
         if(command){
-            if(command.method == 'POST'){
-                result = command.apiPath
-            }else{
-                result = '/' + command.apiPath
+            if(type == 'href'){
+                if(command.method == 'POST'){
+                    result = command.apiPath
+                }else{
+                    result = '/' + command.apiPath
+                }
+            }else if(type == 'withRel'){
+                if(command.method == 'POST'){
+                    result = command.apiPath.substring(1);
+                }else{
+                    result = command.apiPath
+                }
             }
         }
         return result;
