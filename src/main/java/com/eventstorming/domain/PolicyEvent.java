@@ -14,7 +14,7 @@ import java.util.*;
 public class {{eventValue.namePascalCase}} extends AbstractEvent {
 
 {{#eventValue.fieldDescriptors}}
-    private {{safeTypeOf className}} {{nameCamelCase}};
+    private {{safeTypeOf className}} {{camelCase name}};
 {{/eventValue.fieldDescriptors}}
 }
 
