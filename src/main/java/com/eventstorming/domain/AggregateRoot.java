@@ -339,6 +339,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
 });
 
 window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, enumField) {
+    var fields = []
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
            className==="Double" || className==="Double" || className==="Long" || className==="Date" || className ==="BigDecimal"){
@@ -355,8 +356,9 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                     }
                 }else{
                     if(enumField){
-                        for(var i = 0; i< enumField.length; i++){
-                            if(name == enumField[i].name && enumField[i].targetElement && enumField[i].targetElement._type.endsWith("enum")){
+                        fields = enumField.filter(field => field != null);
+                        for(var i = 0; i< fields.length; i++){
+                            if(name == fields[i].name && fields[i].targetElement && fields[i].targetElement._type.endsWith("enum")){
                                 return "@Enumerated(EnumType.STRING)"
                             }else{
                                 return "@Embedded"
