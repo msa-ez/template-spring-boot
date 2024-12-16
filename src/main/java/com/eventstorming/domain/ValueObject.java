@@ -64,7 +64,7 @@ window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) 
             return "@GeneratedValue(strategy=GenerationType.AUTO)";
         }
     }
-    return undefined;
+    return;
 });
 window.$HandleBars.registerHelper('mergeType', function (type) {
     if(type.includes('enum')) {
