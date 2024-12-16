@@ -358,7 +358,8 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                     if(enumField){
                         fields = enumField.filter(field => field != null);
                         for(var i = 0; i< fields.length; i++){
-                            if(name == fields[i].name && fields[i].targetElement && fields[i].targetElement._type.endsWith("enum")){
+                            if(fields[i].targetElement){
+                                if(className == fields[i].targetElement.namePascalCase  && fields[i].targetElement._type.endsWith("enum"))
                                 return "@Enumerated(EnumType.STRING)"
                             }else{
                                 return "@Embedded"
