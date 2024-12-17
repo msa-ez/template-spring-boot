@@ -16,7 +16,7 @@ import java.util.List;
 import lombok.Data;
 import java.util.Date;
 import java.time.LocalDate;
-{{#if policyList.relationEventInfo.aggregate.outgoingRelations}}
+{{#if policyList.relationEventInfo.eventValue.aggregate.outgoingRelations}}
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 {{/if}}
@@ -210,15 +210,15 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         
         //implement business logic here:
 
-        {{#if aggregate.outgoingRelations}}
+        {{#if eventValue.aggregate.outgoingRelations}}
         // if aggregate reference class exists, use it
         
         // ObjectMapper mapper = new ObjectMapper();
-        {{#aggregate.outgoingRelations}}
+        {{#eventValue.aggregate.outgoingRelations}}
         {{#target}}
-        // Map<{{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}, Object> {{../../aggregate.nameCamelCase}}Map = mapper.convertValue({{../../eventValue.nameCamelCase}}.get{{namePascalCase}}Id(), Map.class);
+        // Map<{{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}, Object> {{../../eventValue.aggregate.nameCamelCase}}Map = mapper.convertValue({{../../eventValue.nameCamelCase}}.get{{namePascalCase}}Id(), Map.class);
         {{/target}}
-        {{/aggregate.outgoingRelations}}
+        {{/eventValue.aggregate.outgoingRelations}}
         {{/if}}
         
         /** Example 1:  new item 
