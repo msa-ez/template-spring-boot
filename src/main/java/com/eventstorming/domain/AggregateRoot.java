@@ -17,12 +17,10 @@ import lombok.Data;
 import java.util.Date;
 import java.time.LocalDate;
 {{#policyList.relationEventInfo}}
-{{#eventValue.aggregate}}
-{{#if outgoingRelations}}
+{{#checkAggReference eventValue}}
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
-{{/if}}
-{{/eventValue.aggregate}}
+{{/checkAggReference}}
 {{/policyList.relationEventInfo}}
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
 
@@ -261,6 +259,16 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 //>>> DDD / Aggregate Root
 
 <function>
+window.$HandleBars.registerHelper('checkAggReference', function (event,options) {
+    if(event && event.aggregate){
+        if(event.aggregate.outgoingRelations){
+            return options.fn(this);
+        }else{
+            return options.inverse(this);
+        }
+    } 
+});
+
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
     for(var i = 0; i < fieldDescriptors.length; i ++ ){
         if(fieldDescriptors[i] && fieldDescriptors[i].className == 'Long'){
