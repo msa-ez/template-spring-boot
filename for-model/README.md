@@ -36,7 +36,7 @@ mvn spring-boot:run
 - {{name}}
 ```
 {{#aggregates}}
- http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{nameCamelCase}}="{{name}}" {{/aggregateRoot.fieldDescriptors}}
+ http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{#checkDefaultType className}}{{nameCamelCase}}="{{name}}"{{/checkDefaultType}}{{^checkDefaultType className}} {{#createEnum className ../aggregateRoot.entities.relations}}{{/checkDefaultType}}{{/aggregateRoot.fieldDescriptors}}
 {{/aggregates}}
 ```
 {{/boundedContexts}}
@@ -81,3 +81,26 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 ```
 
+<function>
+window.$HandleBars.registerHelper('checkDefaultType', function (type, options) {
+    if(type === 'String' || type === 'Integer' || type === 'Long' || type === 'Double' || type === 'Float' || type === 'Boolean' || type === 'Date' || type === 'DateTime') {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+});
+
+window.$HandleBars.registerHelper('createEnum', function (type, enumField) {
+    if(enumField){
+        for(var i = 0; i < enumField.length; i++){
+            if(enumField[i] && enumField[i].targetElement){
+                var enumValue = enumField[i].targetElement
+                if(type === enumField[i].targetElement.namePascalCase){
+                    if(enumField[i].targetElement.items){
+                        return `${enumValue.namePascalCase} = ${enumValue.items[0].value}`
+                    }
+                }
+            }
+        }
+    }
+});
+</function>
