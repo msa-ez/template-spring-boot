@@ -207,17 +207,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public static void {{../nameCamelCase}}({{eventValue.namePascalCase}} {{eventValue.nameCamelCase}}){
         
         //implement business logic here:
-
-        {{#if eventValue.aggregate.outgoingRelations}}
-        // if aggregate reference class exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        {{#eventValue.aggregate.outgoingRelations}}
-        {{#target}}
-        // Map<{{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}, Object> {{../../eventValue.aggregate.nameCamelCase}}Map = mapper.convertValue({{../../eventValue.nameCamelCase}}.get{{namePascalCase}}Id(), Map.class);
-        {{/target}}
-        {{/eventValue.aggregate.outgoingRelations}}
-        {{/if}}
         
         /** Example 1:  new item 
         {{../../namePascalCase}} {{../../nameCamelCase}} = new {{../../namePascalCase}}();
@@ -230,6 +219,17 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         */
 
         /** Example 2:  finding and process
+        
+        {{#if eventValue.aggregate.outgoingRelations}}
+        // if {{eventValue.nameCamelCase}}.{{#eventValue.aggregate.outgoingRelations}}{{#target}}{{nameCamelCase}}{{/target}}{{/eventValue.aggregate.outgoingRelations}} exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        {{#eventValue.aggregate.outgoingRelations}}
+        {{#target}}
+        // Map<{{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}, Object> {{../../eventValue.aggregate.nameCamelCase}}Map = mapper.convertValue({{../../eventValue.nameCamelCase}}.get{{namePascalCase}}Id(), Map.class);
+        {{/target}}
+        {{/eventValue.aggregate.outgoingRelations}}
+        {{/if}}
         
         repository().findById({{eventValue.nameCamelCase}}.get???()).ifPresent({{../../nameCamelCase}}->{
             
