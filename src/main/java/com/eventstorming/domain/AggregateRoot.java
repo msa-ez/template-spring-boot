@@ -24,6 +24,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 {{/if}}
 {{/relationEventInfo.eventValue}}
+{{/if}}
 {{/policyList}}
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
 
