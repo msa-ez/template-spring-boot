@@ -221,7 +221,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         /** Example 2:  finding and process
         
         {{#if eventValue.aggregate.outgoingRelations}}
-        // if {{eventValue.nameCamelCase}}.{{#eventValue.aggregate.outgoingRelations}}{{#target}}{{nameCamelCase}}{{/target}}{{/eventValue.aggregate.outgoingRelations}} exists, use it
+        // if {{eventValue.nameCamelCase}}.{{#eventValue.aggregate.outgoingRelations}}{{#target}}{{nameCamelCase}}Id{{/target}}{{/eventValue.aggregate.outgoingRelations}} exists, use it
         
         // ObjectMapper mapper = new ObjectMapper();
         {{#eventValue.aggregate.outgoingRelations}}
@@ -230,7 +230,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         {{/target}}
         {{/eventValue.aggregate.outgoingRelations}}
         {{/if}}
-        
+
         repository().findById({{eventValue.nameCamelCase}}.get???()).ifPresent({{../../nameCamelCase}}->{
             
             {{../../nameCamelCase}} // do something
