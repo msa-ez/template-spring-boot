@@ -36,7 +36,7 @@ mvn spring-boot:run
 - {{name}}
 ```
 {{#aggregates}}
- http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{#checkDefaultType className}}{{nameCamelCase}}="{{name}}"{{/checkDefaultType}}{{^checkDefaultType className}} {{#createEnum className ../aggregateRoot.entities.relations}}{{/checkDefaultType}}{{/aggregateRoot.fieldDescriptors}}
+ http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{#checkDefaultType className}}{{nameCamelCase}}="{{name}}"{{/checkDefaultType}}{{^checkDefaultType className}} {{#createEnum className ../aggregateRoot.entities.relations}}{{/createEnum}}{{/checkDefaultType}}{{/aggregateRoot.fieldDescriptors}}
 {{/aggregates}}
 ```
 {{/boundedContexts}}
