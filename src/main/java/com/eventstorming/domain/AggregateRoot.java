@@ -16,10 +16,14 @@ import java.util.List;
 import lombok.Data;
 import java.util.Date;
 import java.time.LocalDate;
-{{#if policyList.relationEventInfo.eventValue.aggregate.outgoingRelations}}
+{{#policyList}}
+{{#relationEventInfo}}
+{{#if eventValue.aggregate.outgoingRelations}}
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 {{/if}}
+{{/relationEventInfo}}
+{{/policyList}}
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
 
 @Entity
