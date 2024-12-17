@@ -36,7 +36,7 @@ mvn spring-boot:run
 - {{name}}
 ```
 {{#aggregates}}
- http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{#checkDefaultType className}}{{nameCamelCase}}="{{name}}"{{/checkDefaultType}}{{^checkDefaultType className}} {{#createEnum className ../aggregateRoot.entities.relations}}{{/createEnum}}{{/checkDefaultType}}{{/aggregateRoot.fieldDescriptors}}
+ http :8088/{{namePlural}} {{#aggregateRoot.fieldDescriptors}}{{#checkDefaultType className}}{{nameCamelCase}}="{{name}}"{{/checkDefaultType}}{{^checkDefaultType className}}{{#createEnum className ../aggregateRoot.entities.relations}}{{/createEnum}}{{#createVO className ../aggregateRoot.entities.relations}}{{/createVO}}{{/checkDefaultType}}{{/aggregateRoot.fieldDescriptors}}
 {{/aggregates}}
 ```
 {{/boundedContexts}}
@@ -87,6 +87,21 @@ window.$HandleBars.registerHelper('checkDefaultType', function (type, options) {
         return options.fn(this);
     }
     return options.inverse(this);
+});
+
+window.$HandleBars.registerHelper('createEnum', function (type, enumField) {
+    if(enumField){
+        for(var i = 0; i < enumField.length; i++){
+            if(enumField[i] && enumField[i].targetElement){
+                var enumValue = enumField[i].targetElement
+                if(type === enumField[i].targetElement.namePascalCase && enumField[i].targetElement._type.endsWith('enum')){
+                    if(enumField[i].targetElement.items){
+                        return `${enumValue.namePascalCase} = "${enumValue.items[0].value}"`
+                    }
+                }
+            }
+        }
+    }
 });
 
 window.$HandleBars.registerHelper('createEnum', function (type, enumField) {
