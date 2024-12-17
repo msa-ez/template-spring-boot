@@ -16,6 +16,10 @@ import java.util.List;
 import lombok.Data;
 import java.util.Date;
 import java.time.LocalDate;
+{{#if policyList.relationEventInfo.aggregate.outgoingRelations}}
+import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+{{/if}}
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
 
 @Entity
@@ -206,6 +210,17 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         
         //implement business logic here:
 
+        {{#if aggregate.outgoingRelations}}
+        // if aggregate reference class exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        {{#aggregate.outgoingRelations}}
+        {{#target}}
+        // Map<{{#aggregateRoot.fieldDescriptors}}{{#if isKey}}{{className}}{{/if}}{{/aggregateRoot.fieldDescriptors}}, Object> {{../../aggregate.nameCamelCase}}Map = mapper.convertValue({{../../eventValue.nameCamelCase}}.get{{namePascalCase}}Id(), Map.class);
+        {{/target}}
+        {{/aggregate.outgoingRelations}}
+        {{/if}}
+        
         /** Example 1:  new item 
         {{../../namePascalCase}} {{../../nameCamelCase}} = new {{../../namePascalCase}}();
         repository().save({{../../nameCamelCase}});
