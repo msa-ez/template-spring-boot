@@ -104,14 +104,37 @@ window.$HandleBars.registerHelper('createEnum', function (type, enumField) {
     }
 });
 
-window.$HandleBars.registerHelper('createEnum', function (type, enumField) {
-    if(enumField){
-        for(var i = 0; i < enumField.length; i++){
-            if(enumField[i] && enumField[i].targetElement){
-                var enumValue = enumField[i].targetElement
-                if(type === enumField[i].targetElement.namePascalCase){
-                    if(enumField[i].targetElement.items){
-                        return `${enumValue.namePascalCase} = ${enumValue.items[0].value}`
+window.$HandleBars.registerHelper('createVO', function (type, voField) {
+    if(voField){
+        for(var i = 0; i < voField.length; i++){
+            if(voField[i] && voField[i].targetElement){
+                var voValue = voField[i].targetElement
+                if(type === voField[i].targetElement.namePascalCase && voField[i].targetElement.isVO){
+                    if(voField[i].targetElement.fieldDescriptors){
+                        const fields = voField[i].targetElement.fieldDescriptors
+                            .map(field => {
+                                let defaultValue;
+                                switch(field.className.toLowerCase()) {
+                                    case 'string':
+                                        defaultValue = field.nameCamelCase;
+                                        break;
+                                    case 'integer':
+                                    case 'long':
+                                    case 'double':
+                                    case 'float':
+                                        defaultValue = '0';
+                                        break;
+                                    case 'boolean':
+                                        defaultValue = 'false';
+                                        break;
+                                    case 'date':
+                                        defaultValue = 'null';
+                                        break;
+                                }
+                                return `"${field.nameCamelCase}": ${defaultValue}`;
+                            })
+                            .join(', ');
+                        return `${voValue.namePascalCase} := '{${fields}}'`;
                     }
                 }
             }
