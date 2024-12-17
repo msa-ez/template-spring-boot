@@ -18,10 +18,12 @@ import java.util.Date;
 import java.time.LocalDate;
 {{#policyList}}
 {{#relationEventInfo}}
-{{#if eventValue.aggregate.outgoingRelations}}
+{{#eventValue}}
+{{#if aggregate.outgoingRelations}}
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 {{/if}}
+{{/eventValue}}
 {{/relationEventInfo}}
 {{/policyList}}
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
