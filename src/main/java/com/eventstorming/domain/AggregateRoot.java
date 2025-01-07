@@ -265,8 +265,10 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
                     if(event[i].incomingRelations[j].source){
                         if(event[i].incomingRelations[j].source._type.endsWith("Policy")){
                             return options.inverse(this);
+                            break;
                         }else{
                             return options.fn(this);
+                            break;
                         }
                     }else{
                         return options.fn(this);
