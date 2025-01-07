@@ -40,6 +40,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/aggregateRoot.fieldDescriptors}}
 
 {{#lifeCycles}}
+    {{#isNotRelatedPolicy events}}
     {{annotation}}
     public void on{{trigger}}(){
     {{#commands}}
@@ -111,6 +112,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/events}}
     
     }
+{{/isNotRelatedPolicy}}
 {{/lifeCycles}}
 
     public static {{namePascalCase}}Repository repository(){
@@ -255,6 +257,29 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 //>>> DDD / Aggregate Root
 
 <function>
+window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options) {
+    if(event){
+        for(var i = 0; i < event.length; i ++ ){
+            if(event[i].incomingRelations){
+                for(var j = 0; j < event[i].incomingRelations.length; j ++ ){
+                    if(event[i].incomingRelations[j].source){
+                        if(event[i].incomingRelations[j].source._type.endsWith("Policy")){
+                            return options.inverse(this);
+                        }else{
+                            return options.fn(this);
+                        }
+                    }else{
+                        return options.fn(this);
+                    }
+                }
+            }else{
+                return options.fn(this);
+            }
+        }
+    }else{
+        return options.inverse(this);
+    }
+});
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
     for(var i = 0; i < fieldDescriptors.length; i ++ ){
         if(fieldDescriptors[i] && fieldDescriptors[i].className == 'Long'){
