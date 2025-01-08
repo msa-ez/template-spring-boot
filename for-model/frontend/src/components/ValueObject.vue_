@@ -363,7 +363,8 @@ path: frontend/src/components
 
             return value;
         }
-        return pluralize(className.toUpperCase())
+        return pluralize(className.charAt(0).toUpperCase() + className.slice(1))
+        
     })
 
 </function>
