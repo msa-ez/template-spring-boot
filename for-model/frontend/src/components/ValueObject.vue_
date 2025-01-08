@@ -151,7 +151,7 @@ path: frontend/src/components
             },
             {{#referenceClass}}
             openDialog() {
-                var path = '/{{#lowerCase ../referenceClass}}{{/lowerCase}}/';
+                var path = '/{{#toURL ../referenceClass}}{{/toURL}}/';
 
                 if(this.editMode) {
                     this.pickerDialog = true;
@@ -162,7 +162,7 @@ path: frontend/src/components
             },
             async pick(val){
                 this.newValue = val;
-                var path = '/{{#lowerCase ../referenceClass}}{{/lowerCase}}';
+                var path = '/{{#toURL ../referenceClass}}{{/toURL}}';
                 var temp = await axios.get(axios.fixUrl(path + '/' + val.{{nameCamelCase}}));
                 if(temp.data) {
                     this.referenceValue = temp.data;
@@ -363,7 +363,7 @@ path: frontend/src/components
 
             return value;
         }
-        return pluralize(className.toLowerCase())
+        return pluralize(className.toUpperCase())
     })
 
 </function>
