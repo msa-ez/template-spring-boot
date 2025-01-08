@@ -167,6 +167,7 @@ export default {
             {{/boundedContexts}}
             {{#boundedContexts}}
             {{#readModels}}
+            {{#checkReadModel dataProjection}}
             { 
                 title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}', 
                 description: '{{name}}을 관리하는 화면입니다.', 
@@ -174,6 +175,7 @@ export default {
                 route: '/{{boundedContext.namePlural}}/{{namePlural}}',
                 ImageUrl: '{{#if options.rootModel.uiStyle.logoImage}}{{{options.rootModel.uiStyle.logoImage.url}}}{{/if}}',
             },
+            {{/checkReadModel}}
             {{/readModels}}
             {{/boundedContexts}}
             
