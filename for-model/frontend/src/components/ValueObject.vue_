@@ -92,7 +92,7 @@ path: frontend/src/components
             {{#referenceClass}}
             else {
                 this.newValue = this.value;
-                var path = '/{{#lowerCase ../referenceClass}}{{/lowerCase}}';
+                var path = '/{{#toURL ../referenceClass}}{{/toURL}}';
                 var temp = await axios.get(axios.fixUrl(path + '/' +  Object.values(this.value)[0]));
                 if(temp.data) {
                     this.referenceValue = temp.data
@@ -176,9 +176,6 @@ path: frontend/src/components
 
 
 <function>
-    window.$HandleBars.registerHelper('lowerCase', function (name) {
-        return name.replace(/[^가-힣a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-    });
     window.$HandleBars.registerHelper('print', function (value) {
         console.log(value)
     });
