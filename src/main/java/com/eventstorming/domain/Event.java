@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class {{namePascalCase}} extends AbstractEvent {
 
     {{#fieldDescriptors}}
-    private {{{className}}} {{camelCase nameCamelCase}};
+    private {{{className}}} {{nameCamelCase}};
     {{/fieldDescriptors}}
 
     {{#validate aggregate}}
