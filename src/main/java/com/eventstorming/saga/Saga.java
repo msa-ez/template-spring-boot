@@ -1,5 +1,5 @@
 forEach: Policy
-fileName: {{namePascalCase}}.java
+fileName: {{namePascalCase}}Saga.java
 path: {{boundedContext.name}}/{{{options.packagePath}}}/saga
 except: {{#isSaga}}false{{else}}true{{/isSaga}}
 ---
