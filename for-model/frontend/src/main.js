@@ -147,7 +147,7 @@ new Vue({
     try{
         var isSelectedSecurity = false
         for(var i=0; i<selectedSecurity.length; i++){
-            if(selectedSecurity[i].includes('topping-keycloak-security')){
+            if(selectedSecurity[i].includes('keycloak-security')){
                 isSelectedSecurity =  true;
             }
         }
