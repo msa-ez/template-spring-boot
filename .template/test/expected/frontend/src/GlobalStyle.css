@@ -52,3 +52,7 @@
 .main-card:hover .main-card-title {
   color:white;
 }
+
+.delete-input-detail .v-text-field__details {
+  display: none !important;
+}
