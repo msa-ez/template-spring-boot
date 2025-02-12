@@ -46,10 +46,10 @@ path: frontend/src/components/listers
                         transition="dialog-bottom-transition"
                 >
                     {{#if (checkGeneralization aggregateRoot.entities.relations nameCamelCase)}}
-                    <component :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
+                    <component :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" 
                             @add="append" v-if="tick" v-bind:is="childType"/>
                     {{else}}
-                    <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
+                    <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" 
                             @add="append" v-if="tick"/>
                     {{/if}}
 
@@ -120,12 +120,21 @@ path: frontend/src/components/listers
         </v-col>
         <v-row>
             {{#if (checkGeneralization aggregateRoot.entities.relations nameCamelCase)}}
-            <component :offline="offline" class="video-card" 
-                    v-for="(value, index) in values" v-bind:key="index"
-                    v-model="values[index]" @delete="remove"
-                    v-bind:is="values[index]._links.type.href.replace('/', '')"/>
+            <v-col cols="12" sm="6" md="3" v-for="(value, index) in values" :key="index">
+                <component :offline="offline"
+                    
+                    v-model="values[index]"
+                    @delete="remove"
+                    v-bind:is="values[index]._links.type.href.replace('/', '')"
+                />
+            </v-col>
             {{else}}
-            <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
+            <v-col cols="12" sm="6" md="3" v-for="(value, index) in values" :key="index">
+                <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline"
+                    
+                    v-model="values[index]"
+                    @delete="remove"/>
+            </v-col>
             {{/if}}
         </v-row>
     </div>
@@ -247,12 +256,6 @@ path: frontend/src/components/listers
 
 
 <style>
-    .video-card {
-        width:300px; 
-        margin-left:4.5%; 
-        margin-top:50px; 
-        margin-bottom:50px;
-    }
 </style>
 
 

@@ -35,7 +35,7 @@ path: frontend/src/components/listers
                         </v-fab-transition>
                     </template>
 
-                    <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <{{boundedContext.namePascalCase}}{{namePascalCase}} :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
                         class="gs-close-btn"
