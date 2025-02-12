@@ -56,3 +56,7 @@
 .delete-input-detail .v-text-field__details {
   display: none !important;
 }
+
+.delete-input-detail {
+  margin: 0px !important;
+}
