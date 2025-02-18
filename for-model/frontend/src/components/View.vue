@@ -33,7 +33,7 @@ export default {
 
         onMounted(async () => {
             try {
-                const response = await axios.get(axios.fixUrl('/{{namePlural}}'));
+                const response = await axios.get('/{{namePlural}}');
                 const data = response.data._embedded.{{namePlural}};
                 data.forEach(obj => {
                     obj.id = obj._links.self.href.split("/").pop();
