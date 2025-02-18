@@ -23,8 +23,8 @@ import {
     {{#views}}
         <VerticalNavLink
             :item="{
-                title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}} View',
-                to: '/{{namePlural}}/view',
+                title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}',
+                to: '/{{namePlural}}',
             }"
         />
     {{/views}}
