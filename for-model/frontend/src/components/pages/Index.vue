@@ -42,6 +42,12 @@ export default {
           link: "/{{namePlural}}",
       },
   {{/aggregates}}
+  {{#views}}
+      {
+          text: "{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}",
+          link: "/{{namePlural}}",
+      },
+  {{/views}}
 {{/boundedContexts}}
     ],
   }),

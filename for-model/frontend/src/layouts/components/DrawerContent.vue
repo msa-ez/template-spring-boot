@@ -20,6 +20,14 @@ import {
             }"
         />
     {{/aggregates}}
+    {{#views}}
+        <VerticalNavLink
+            :item="{
+                title: '{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}} View',
+                to: '/{{namePlural}}/view',
+            }"
+        />
+    {{/views}}
 {{/boundedContexts}}
     </ul>
 </template>
