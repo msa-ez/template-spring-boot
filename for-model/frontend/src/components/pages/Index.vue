@@ -39,13 +39,13 @@ export default {
   {{#aggregates}}
       {
           text: "{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}",
-          link: "/{{namePlural}}",
+          link: "/{{boundedContext.namePlural}}/{{namePlural}}",
       },
   {{/aggregates}}
   {{#views}}
       {
           text: "{{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}",
-          link: "/{{namePlural}}",
+          link: "/{{boundedContext.namePlural}}/{{namePlural}}",
       },
   {{/views}}
 {{/boundedContexts}}
