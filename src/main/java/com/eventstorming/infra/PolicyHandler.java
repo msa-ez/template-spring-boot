@@ -50,8 +50,10 @@ public class PolicyHandler{
         {{#../aggregateList}}
         {{namePascalCase}}.{{../../nameCamelCase}}(event);
         {{/../aggregateList}}
+
         {{#attached "Command" ../this}}
-        {{aggregate.namePascalCase}}.{{nameCamelCase}}
+        {{namePascalCase}} command = new {{namePascalCase}}();
+        {{aggregate.namePascalCase}}.{{nameCamelCase}}(command);
         {{/attached}}
 
         
