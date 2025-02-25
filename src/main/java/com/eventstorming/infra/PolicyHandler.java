@@ -50,9 +50,9 @@ public class PolicyHandler{
         {{#../aggregateList}}
         {{namePascalCase}}.{{../../nameCamelCase}}(event);
         {{/../aggregateList}}
-        {{#reaching "Aggregate" ../this}}
-        {{namePascalCase}}.
-        {{/reaching}}
+        {{#attached "Command" ../this}}
+        {{aggregate.namePascalCase}}.{{nameCamelCase}}
+        {{/attached}}
 
         
 
