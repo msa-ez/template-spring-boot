@@ -49,8 +49,10 @@ public class PolicyHandler{
         // Sample Logic //
         {{#../aggregateList}}
         {{namePascalCase}}.{{../../nameCamelCase}}(event);
-        
         {{/../aggregateList}}
+        {{#reaching "Aggregate" ../this}}
+        {{namePascalCase}}.
+        {{/reaching}}
 
         
 
