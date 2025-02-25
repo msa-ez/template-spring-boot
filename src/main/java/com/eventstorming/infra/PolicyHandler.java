@@ -53,6 +53,9 @@ public class PolicyHandler{
 
         {{#attached "Command" ../this}}
         {{namePascalCase}}Command command = new {{namePascalCase}}Command();
+        {{#fieldDescriptors}}
+        //command.set{{namePascalCase}}("??")
+        {{/fieldDescriptors}}
         {{aggregate.namePascalCase}}.{{nameCamelCase}}(command);
         {{/attached}}
 
