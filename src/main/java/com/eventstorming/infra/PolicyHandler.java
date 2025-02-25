@@ -52,7 +52,7 @@ public class PolicyHandler{
         {{/../aggregateList}}
 
         {{#attached "Command" ../this}}
-        {{namePascalCase}} command = new {{namePascalCase}}();
+        {{namePascalCase}}Command command = new {{namePascalCase}}Command();
         {{aggregate.namePascalCase}}.{{nameCamelCase}}(command);
         {{/attached}}
 
