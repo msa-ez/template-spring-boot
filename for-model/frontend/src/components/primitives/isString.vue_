@@ -3,7 +3,7 @@ path: frontend/src/components/primitives
 ---
 <template>
     <div>
-        <div v-if="editMode" style="margin-top:-20px;">
+        <div v-if="editMode">
             <v-textarea v-if="multiLine"
                     :label="label" 
                     v-model="value"
@@ -13,6 +13,8 @@ path: frontend/src/components/primitives
                     :label="label" 
                     v-model="value"
                     @change="change"
+                    outlined
+                    dense
             />
         </div>
         <div v-else>

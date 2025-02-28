@@ -1,5 +1,5 @@
 <template>
-    <div style="margin: 0 -15px 0 -15px;">
+    <div>
         <v-card-title>
             {{label}}
         </v-card-title>

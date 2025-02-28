@@ -161,7 +161,7 @@ path: frontend/src/components
         </v-snackbar>
     </v-card>
     {{else}}
-    <div style="margin: 0 -15px 0 -15px;">
+    <div>
         <v-card-title>
             {{namePascalCase}}
         </v-card-title>
