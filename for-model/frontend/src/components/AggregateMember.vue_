@@ -9,7 +9,7 @@ path: frontend/src/components
             {{../referenceClass}} : \{{ referenceValue ? referenceValue.name : '' }}
         </v-card-title>
 
-        <v-dialog v-model="pickerDialog">
+        <v-dialog v-model="pickerDialog" width="500">
             <v-card>
                 <v-card-title>{{../referenceClass}}</v-card-title>
                 <v-card-text>
