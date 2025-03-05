@@ -58,9 +58,7 @@ fileName: SNSApp.vue
                     >
                         {{#ifNotNull displayName namePascalCase}}{{/ifNotNull}}
                     </v-list-item>
-
     		    {{/aggregates}}
-
     		    {{#readModels}}
                 {{#checkReadModel dataProjection}}
                     <v-list-item
