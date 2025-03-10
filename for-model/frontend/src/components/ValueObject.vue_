@@ -62,9 +62,13 @@ path: frontend/src/components
     const axios = require('axios').default;
     {{/referenceClass}}
 
+    import {{#referenceClass}}{{../referenceClass}}Picker from './listers/{{../referenceClass}}Picker'; {{/referenceClass}}
+
     export default {
         name: '{{namePascalCase}}',
-        components:{},
+        components:{
+            {{#referenceClass}}{{../referenceClass}}{{/referenceClass}}
+        },
         props: {
             value: [Object, String, Number, Boolean, Array],
             editMode: Boolean,
