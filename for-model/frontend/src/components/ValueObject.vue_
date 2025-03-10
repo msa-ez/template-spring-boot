@@ -67,7 +67,7 @@ path: frontend/src/components
     export default {
         name: '{{namePascalCase}}',
         components:{
-            {{#referenceClass}}{{../referenceClass}}{{/referenceClass}}
+            {{#referenceClass}}{{../referenceClass}}Picker{{/referenceClass}}
         },
         props: {
             value: [Object, String, Number, Boolean, Array],
