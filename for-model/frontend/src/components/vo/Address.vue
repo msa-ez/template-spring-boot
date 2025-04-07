@@ -25,7 +25,7 @@ fileName: Address.vue
             <div>
                 <v-divider></v-divider><br>
                 <GoogleMap
-                    api-key="AIzaSyBupK0cTa2fQJA833My7W-BGLAYvQQEN1Q"
+                    api-key=""
                     class="mx-auto"
                     :center="{lat:latitude, lng:longitude}"
                     :libraries="['places']"
