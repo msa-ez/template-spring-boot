@@ -46,7 +46,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#commands}}
     {{#if isRestRepository}}
     {{#relationCommandInfo}}
-    {{#checkEqualBC commandValue targetAggregate}}
+    {{#checkEqualBoundedContext commandValue targetAggregate}}
     {{#if targetAggregate}}
     {{#targetAggregate}}
     {{#isReadModel this}}
@@ -78,9 +78,9 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/isReadModel}}
     {{/targetAggregate}}
     {{/if}}
-    {{/checkEqualBC}}
-    {{^checkEqualBC commandValue targetAggregate}}
-    {{/checkEqualBC}}
+    {{/checkEqualBoundedContext}}
+    {{^checkEqualBoundedContext commandValue targetAggregate}}
+    {{/checkcheckEqualBoundedContextEqualBC}}
     {{/relationCommandInfo}}
     {{/if}}
     {{/commands}}
@@ -261,7 +261,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 //>>> DDD / Aggregate Root
 
 <function>
-window.$HandleBars.registerHelper('checkEqualBC', function (source, target, options) {
+window.$HandleBars.registerHelper('checkEqualBoundedContext', function (source, target, options) {
     var sourceBC = '';
     var targetBC = '';
     sourceBC = source.boundedContext.name
