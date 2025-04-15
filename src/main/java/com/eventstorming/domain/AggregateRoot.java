@@ -78,11 +78,10 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/isReadModel}}
     {{/targetAggregate}}
     {{/if}}
-    {{/relationCommandInfo}}
     {{/checkEqualBC}}
     {{^checkEqualBC commandValue targetAggregate}}
-    
     {{/checkEqualBC}}
+    {{/relationCommandInfo}}
     {{/if}}
     {{/commands}}
     {{#events}}
