@@ -46,7 +46,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#commands}}
     {{#if isRestRepository}}
     {{#relationCommandInfo}}
-    {{#checkEqualBoundedContext this commandValue targetAggregate}}
+    {{#checkEqualBoundedContext commandValue targetAggregate}}
     {{#if targetAggregate}}
     {{#targetAggregate}}
     {{#isReadModel this}}
@@ -79,7 +79,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/targetAggregate}}
     {{/if}}
     {{/checkEqualBoundedContext}}
-    {{^checkEqualBoundedContext this commandValue targetAggregate}}
+    {{^checkEqualBoundedContext  commandValue targetAggregate}}
+    test
     {{/checkEqualBoundedContext}}
     {{/relationCommandInfo}}
     {{/if}}
