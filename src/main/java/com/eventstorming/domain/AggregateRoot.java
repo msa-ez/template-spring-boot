@@ -79,7 +79,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/targetAggregate}}
     {{/if}}
     {{/checkEqualBoundedContext}}
-    {{^checkEqualBoundedContext  commandValue targetAggregate}}
+    {{^checkEqualBoundedContext commandValue targetAggregate}}
     test
     {{/checkEqualBoundedContext}}
     {{/relationCommandInfo}}
@@ -262,7 +262,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 //>>> DDD / Aggregate Root
 
 <function>
-window.$HandleBars.registerHelper('checkEqualBoundedContext', function (agg, source, target, options) {
+window.$HandleBars.registerHelper('checkEqualBoundedContext', function (source, target, options) {
     var sourceBC = '';
     var targetBC = '';
     sourceBC = source.boundedContext.name
