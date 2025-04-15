@@ -80,7 +80,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/if}}
     {{/checkEqualBoundedContext}}
     {{^checkEqualBoundedContext this commandValue targetAggregate}}
-    {{/checkcheckEqualBoundedContextEqualBC}}
+    {{/checkEqualBoundedContext}}
     {{/relationCommandInfo}}
     {{/if}}
     {{/commands}}
