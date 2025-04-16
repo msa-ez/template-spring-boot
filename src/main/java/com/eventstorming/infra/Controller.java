@@ -110,7 +110,7 @@ public class {{ namePascalCase }}Controller {
     {{#if queryOption.useDefaultUri}}
     {{else}}
     {{#if queryOption.multipleResult}}
-    @GetMapping(path = "/{{../namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
+    @GetMapping(path = "/{{../namePlural}}/{{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}")
     public {{#if queryOption.multipleResult}}List<{{../namePascalCase}}>{{else}}{{../namePascalCase}}{{/if}} {{#if queryOption.apiPath}}{{camelCase queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query) {
         return {{../nameCamelCase}}Repository.{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{#queryParameters}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/queryParameters}});
     }
@@ -126,6 +126,11 @@ public class {{ namePascalCase }}Controller {
 //>>> Clean Arch / Inbound Adaptor
 
 <function>
+window.$HandleBars.registerHelper('firstCamel', function (name) {
+    if (!name || typeof name !== 'string') return '';
+    return name.charAt(0).toLowerCase() + name.slice(1);
+  });
+
 window.$HandleBars.registerHelper('addMustache', function (name) {
     var keyName = ''
     keyName = "{" + name + "}"

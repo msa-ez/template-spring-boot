@@ -28,7 +28,7 @@ public interface {{aggregate.namePascalCase}}Service {
     public List<{{aggregate.namePascalCase}}> {{nameCamelCase}}({{namePascalCase}}Query {{nameCamelCase}}Query);
     {{else}}
     @GetMapping(path="/{{aggregate.namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
-    public List<{{aggregate.namePascalCase}}> {{#if queryOption.apiPath}}{{camelCase queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query);
+    public List<{{aggregate.namePascalCase}}> {{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query);
     {{/if}}
     {{else}}
     {{#if queryOption.useDefaultUri}}
@@ -58,6 +58,11 @@ public interface {{aggregate.namePascalCase}}Service {
 if(!this.contexts.except){
  
 }
+window.$HandleBars.registerHelper('firstCamel', function (name) {
+    if (!name || typeof name !== 'string') return '';
+    return name.charAt(0).toLowerCase() + name.slice(1);
+  });
+
 window.$HandleBars.registerHelper('changeUpper', function (name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 });
