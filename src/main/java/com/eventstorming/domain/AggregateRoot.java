@@ -88,13 +88,13 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         // Map the data and fields to be retrieved from the query. 
         // ex) searchProductName = this.getProductName();
         {{#targetAggregate.queryParameters}}
-        {{targetAggregate.nameCamelCase}}Query.set{{namePascalCase}}(this.get??);
+        {{../targetAggregate.nameCamelCase}}Query.set{{namePascalCase}}(this.get??);
         {{/targetAggregate.queryParameters}}
 
         List<{{targetAggregate.aggregate.namePascalCase}}> search{{targetAggregate.aggregate.namePascalCase}} = {{targetAggregate.aggregate.nameCamelCase}}Repository.{{targetAggregate.nameCamelCase}}({{targetAggregate.nameCamelCase}}Query);
         
-        if({{#targetAggregate.queryParameters}}{{targetAggregate.nameCamelCase}}Query.get{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
-            throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}{{targetAggregate.nameCamelCase}}Query{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
+        if({{#targetAggregate.queryParameters}}{{../targetAggregate.nameCamelCase}}Query.get{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
+            throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}{{../targetAggregate.nameCamelCase}}Query{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
         }
        
     {{/checkEqualBoundedContext}}
