@@ -24,7 +24,7 @@ import java.util.List;
 public interface {{aggregate.namePascalCase}}Service {
     {{#if queryOption.multipleResult}}
     {{#if queryOption.useDefaultUri}}
-    @GetMapping(path="/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
+    @GetMapping(path="/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}")
     public List<{{aggregate.namePascalCase}}> {{nameCamelCase}}({{namePascalCase}}Query {{nameCamelCase}}Query);
     {{else}}
     @GetMapping(path="/{{aggregate.namePlural}}/{{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}")
