@@ -27,7 +27,7 @@ public interface {{aggregate.namePascalCase}}Service {
     @GetMapping(path="/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
     public List<{{aggregate.namePascalCase}}> {{nameCamelCase}}({{namePascalCase}}Query {{nameCamelCase}}Query);
     {{else}}
-    @GetMapping(path="/{{aggregate.namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
+    @GetMapping(path="/{{aggregate.namePlural}}/{{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}")
     public List<{{aggregate.namePascalCase}}> {{#if queryOption.apiPath}}{{#firstCamel queryOption.apiPath}}{{/firstCamel}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query);
     {{/if}}
     {{else}}
