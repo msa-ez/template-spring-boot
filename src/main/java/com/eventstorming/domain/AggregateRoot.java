@@ -91,7 +91,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 
         {{targetAggregate.aggregate.namePascalCase}} search{{targetAggregate.aggregate.namePascalCase}} = {{targetAggregate.aggregate.nameCamelCase}}Repository.{{targetAggregate.nameCamelCase}}({{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
         
-        if({{#targetAggregate.queryParameters}}search{{../targetAggregate.aggregate.namePascalCase}}.search{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
+        if({{#targetAggregate.queryParameters}}search{{../targetAggregate.aggregate.namePascalCase}}.get{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
             throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
         }
        
