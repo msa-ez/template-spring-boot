@@ -111,7 +111,7 @@ public class {{ namePascalCase }}Controller {
     {{else}}
     {{#if queryOption.multipleResult}}
     @GetMapping(path = "/{{../namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
-    public {{#if queryOption.multipleResult}}List<{{../namePascalCase}}>{{else}}{{../namePascalCase}}{{/if}} {{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query) {
+    public {{#if queryOption.multipleResult}}List<{{../namePascalCase}}>{{else}}{{../namePascalCase}}{{/if}} {{#if queryOption.apiPath}}{{camelCase queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query) {
         return {{../nameCamelCase}}Repository.{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{#queryParameters}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/queryParameters}});
     }
     {{else}}
