@@ -80,7 +80,21 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/if}}
     {{/checkEqualBoundedContext}}
     {{^checkEqualBoundedContext commandValue targetAggregate}}
-    test
+        OrderItemRepository orderItemRepository = OrderItem.repository();
+        {{targetAggregate.aggregate.namePascalCase}}Repository {{targetAggregate.aggregate.nameCamelCase}}Repository = {{targetAggregate.aggregate.namePascalCase}}.repository();
+        
+        // Map the data and fields to be retrieved from the query. 
+        // ex) searchProductName = this.getProductName();
+        {{#targetAggregate.queryParameters}}
+        {{className}} search{{namePascalCase}} = this.get??();
+        {{/targetAggregate.queryParameters}}
+
+        {{targetAggregate.aggregate.namePascalCase}} search{{targetAggregate.aggregate.namePascalCase}} = {{targetAggregate.aggregate.nameCamelCase}}Repository.{{targetAggregate.nameCamelCase}}({{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
+        
+        if({{#targetAggregate.queryParameters}}search{{../aggregate.namePascalCase}}.search{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
+            throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
+        }
+       
     {{/checkEqualBoundedContext}}
     {{/relationCommandInfo}}
     {{/if}}
