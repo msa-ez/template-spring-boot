@@ -109,16 +109,28 @@ public class {{ namePascalCase }}Controller {
     {{#attached "View" this}}
     {{#if queryOption.useDefaultUri}}
     {{else}}
+    {{#if queryOption.multipleResult}}
     @GetMapping(path = "/{{../namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
     public {{#if queryOption.multipleResult}}List<{{../namePascalCase}}>{{else}}{{../namePascalCase}}{{/if}} {{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query) {
         return {{../nameCamelCase}}Repository.{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{#queryParameters}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/queryParameters}});
     }
+    {{else}}
+    @GetMapping(path = "/{{aggregate.namePlural}}/{{#addMustache aggregate.keyFieldDescriptor.nameCamelCase}}{{/addMustache}}")
+    public {{aggregate.namePascalCase}} {{namePascalCase}}(@PathVariable("{{aggregate.keyFieldDescriptor.nameCamelCase}}") {{aggregate.keyFieldDescriptor.className}} {{aggregate.keyFieldDescriptor.nameCamelCase}}) {
+        return inventoryRepository.GetInventory();
+    }
+    {{/if}}
     {{/if}}
     {{/attached}}
 }
 //>>> Clean Arch / Inbound Adaptor
 
 <function>
+window.$HandleBars.registerHelper('addMustache', function (name) {
+    var keyName = ''
+    keyName = "{" + name + "}"
+    return keyName
+});
 window.$HandleBars.registerHelper('isGeneralization', function (toName, name, type) {
     try {
         if(toName == null || name == null || type == null) {
