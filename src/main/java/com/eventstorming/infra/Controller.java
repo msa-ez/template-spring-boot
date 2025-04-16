@@ -116,7 +116,7 @@ public class {{ namePascalCase }}Controller {
     }
     {{else}}
     @GetMapping(path = "/{{aggregate.namePlural}}/{{#addMustache aggregate.keyFieldDescriptor.nameCamelCase}}{{/addMustache}}")
-    public {{aggregate.namePascalCase}} {{namePascalCase}}(@PathVariable("{{aggregate.keyFieldDescriptor.nameCamelCase}}") {{aggregate.keyFieldDescriptor.className}} {{aggregate.keyFieldDescriptor.nameCamelCase}}) {
+    public {{aggregate.namePascalCase}} {{nameCamelCase}}(@PathVariable("{{aggregate.keyFieldDescriptor.nameCamelCase}}") {{aggregate.keyFieldDescriptor.className}} {{aggregate.keyFieldDescriptor.nameCamelCase}}) {
         return inventoryRepository.findById({{aggregate.keyFieldDescriptor.nameCamelCase}});
     }
     {{/if}}
