@@ -36,7 +36,7 @@ public interface {{aggregate.namePascalCase}}Service {
     public {{aggregate.namePascalCase}} {{nameCamelCase}} (@PathVariable {{#aggregateRoot.fieldDescriptors}}{{#if isKey}} ("{{nameCamelCase}}") {{className}} {{nameCamelCase}});{{/if}}{{/aggregateRoot.fieldDescriptors}}
     {{else}} 
     @GetMapping(path="/{{aggregate.namePlural}}/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}")
-    public {{aggregate.namePascalCase}} {{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{namePascalCase}}Query {{nameCamelCase}}Query);
+    public {{aggregate.namePascalCase}} {{nameCamelCase}} (@PathVariable {{#aggregateRoot.fieldDescriptors}}{{#if isKey}} ("{{nameCamelCase}}") {{className}} {{nameCamelCase}});{{/if}}{{/aggregateRoot.fieldDescriptors}}
     {{/if}}
     {{/if}}
 
