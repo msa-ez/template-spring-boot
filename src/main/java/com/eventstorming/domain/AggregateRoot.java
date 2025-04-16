@@ -82,16 +82,19 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{^checkEqualBoundedContext commandValue targetAggregate}}
         {{targetAggregate.aggregate.namePascalCase}}Repository {{targetAggregate.aggregate.nameCamelCase}}Repository = {{targetAggregate.aggregate.namePascalCase}}.repository();
         
+        {{targetAggregate.namePascalCase}}Query {{targetAggregate.nameCamelCase}}Query = new {{targetAggregate.namePascalCase}}Query();
+
+
         // Map the data and fields to be retrieved from the query. 
         // ex) searchProductName = this.getProductName();
         {{#targetAggregate.queryParameters}}
-        {{className}} search{{namePascalCase}} = this.get??();
+        {{targetAggregate.nameCamelCase}}Query.set{{namePascalCase}}(this.get??);
         {{/targetAggregate.queryParameters}}
 
-        {{targetAggregate.aggregate.namePascalCase}} search{{targetAggregate.aggregate.namePascalCase}} = {{targetAggregate.aggregate.nameCamelCase}}Repository.{{targetAggregate.nameCamelCase}}({{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
+        List<{{targetAggregate.aggregate.namePascalCase}}> search{{targetAggregate.aggregate.namePascalCase}} = {{targetAggregate.aggregate.nameCamelCase}}Repository.{{targetAggregate.nameCamelCase}}({{targetAggregate.nameCamelCase}}Query);
         
-        if({{#targetAggregate.queryParameters}}search{{../targetAggregate.aggregate.namePascalCase}}.get{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
-            throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}search{{namePascalCase}}{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
+        if({{#targetAggregate.queryParameters}}{{targetAggregate.nameCamelCase}}Query.get{{namePascalCase}}() == null{{^@last}} && {{/@last}}{{/targetAggregate.queryParameters}}){
+            throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}{{targetAggregate.nameCamelCase}}Query{{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
         }
        
     {{/checkEqualBoundedContext}}
