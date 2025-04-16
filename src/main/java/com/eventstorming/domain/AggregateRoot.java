@@ -80,7 +80,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/if}}
     {{/checkEqualBoundedContext}}
     {{^checkEqualBoundedContext commandValue targetAggregate}}
-        OrderItemRepository orderItemRepository = OrderItem.repository();
         {{targetAggregate.aggregate.namePascalCase}}Repository {{targetAggregate.aggregate.nameCamelCase}}Repository = {{targetAggregate.aggregate.namePascalCase}}.repository();
         
         // Map the data and fields to be retrieved from the query. 
