@@ -115,7 +115,7 @@ public class {{ namePascalCase }}Controller {
         return {{../nameCamelCase}}Repository.{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{nameCamelCase}}{{/if}}({{#queryParameters}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/queryParameters}});
     }
     {{else}}
-    @GetMapping(path = "/{{aggregate.namePlural}}/{{#addMustache aggregate.keyFieldDescriptor.nameCamelCase}}{{/addMustache}}")
+    @GetMapping(path = "/{{aggregate.namePlural}}/{{nameCamelCase}}/{{#addMustache aggregate.keyFieldDescriptor.nameCamelCase}}{{/addMustache}}")
     public {{aggregate.namePascalCase}} {{nameCamelCase}}(@PathVariable("{{aggregate.keyFieldDescriptor.nameCamelCase}}") {{aggregate.keyFieldDescriptor.className}} {{aggregate.keyFieldDescriptor.nameCamelCase}}) {
         return inventoryRepository.findById({{aggregate.keyFieldDescriptor.nameCamelCase}});
     }
