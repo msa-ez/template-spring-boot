@@ -80,13 +80,14 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/if}}
     {{/checkEqualBoundedContext}}
     {{^checkEqualBoundedContext commandValue targetAggregate}}
+    {{#if targetAggregate.queryOption.multipleResult}}
         {{targetAggregate.aggregate.namePascalCase}}Repository {{targetAggregate.aggregate.nameCamelCase}}Repository = {{targetAggregate.aggregate.namePascalCase}}.repository();
         
         {{targetAggregate.namePascalCase}}Query {{targetAggregate.nameCamelCase}}Query = new {{targetAggregate.namePascalCase}}Query();
 
 
         // Map the data and fields to be retrieved from the query. 
-        // ex) searchProductName = this.getProductName();
+        // ex) getOrderItemQuery.setProductName(this.getProductName());
         {{#targetAggregate.queryParameters}}
         {{../targetAggregate.nameCamelCase}}Query.set{{namePascalCase}}(this.get??);
         {{/targetAggregate.queryParameters}}
@@ -96,7 +97,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         if(search{{targetAggregate.namePascalCase}}.isEmpty()){
             throw new IllegalArgumentException("No data found for search: " + {{#targetAggregate.queryParameters}}search{{../targetAggregate.namePascalCase}}.get{{namePascalCase}}(){{^@last}}, {{/@last}}{{/targetAggregate.queryParameters}});
         }
-       
+    {{/if}} 
     {{/checkEqualBoundedContext}}
     {{/relationCommandInfo}}
     {{/if}}
