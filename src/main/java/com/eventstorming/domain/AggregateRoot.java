@@ -39,7 +39,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     private {{{className}}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
-    {{#aggregateRoot.entities.relations}}
+    {{#isEntity aggregateRoot.entities.relations}}
     {{#if targetElement.isVO}}
     {{else}}
     public void addItem(String productName, int quantity) {
@@ -52,7 +52,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         items.remove(item);
     }
     {{/if}}
-    {{/aggregateRoot.entities.relations}}
+    {{/isEntity}}
 
 {{#lifeCycles}}
     {{#isNotRelatedPolicy events}}
@@ -330,6 +330,17 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
         return options.inverse(this);
     }
 });
+window.$HandleBars.registerHelper('isEntity', function (relation, options) {
+    for(var i = 0; i < relation.length; i ++ ){
+        if(!relation[i].targetElement.isVO){
+            return options.fn(this);
+        }else{
+            return options.inverse(this);
+        }
+    }
+    return "";
+});
+
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
     for(var i = 0; i < fieldDescriptors.length; i ++ ){
         if(fieldDescriptors[i] && fieldDescriptors[i].className == 'Long'){
