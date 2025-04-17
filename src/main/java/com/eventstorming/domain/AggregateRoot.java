@@ -54,7 +54,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         {{#changeLower name}}{{/changeLower}}.remove({{targetElement.nameCamelCase}});
     }
 
-    public List<{{targetElement.namePascalCase}}> get{{namePascalCase}}() {
+    public List<{{targetElement.namePascalCase}}> get{{#changeUpper name}}{{/changeUpper}}() {
         return Collections.unmodifiableList({{nameCamelCase}});
     }
     {{/if}}
@@ -345,6 +345,12 @@ window.$HandleBars.registerHelper('checkEntityField', function (type, name, isVO
     }else{
         return "private" + " " + type + " " + name + ";";
     }
+});
+window.$HandleBars.registerHelper('changeUpper', function (name) {
+    if (!name || typeof name !== 'string' || name.length === 0) {
+        return '';
+    }
+    return name.charAt(0).toUpperCase() + name.slice(1);
 });
 window.$HandleBars.registerHelper('changeLower', function (name) {
     if (!name || typeof name !== 'string' || name.length === 0) {
