@@ -428,7 +428,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                 if (foundRelation.targetElement.isVO) {
                     return "@ElementCollection";
                 } else {
-                    return "@OneToMany(mappedBy = "${aggName}", cascade = CascadeType.ALL, orphanRemoval = true)";
+                    return "@OneToMany(mappedBy = \"" + aggName + "\", cascade = CascadeType.ALL, orphanRemoval = true)";
                 }
             }else{
                 return "@Enumerated(EnumType.STRING)";
@@ -456,7 +456,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                     } else if (foundField.targetElement.isVO) {
                         return "@Embedded";
                     } else {
-                        return "@OneToOne(mappedBy = "${aggName}", cascade = CascadeType.ALL, orphanRemoval = true)";
+                        return "@OneToOne(mappedBy = \"" + aggName + "\", cascade = CascadeType.ALL, orphanRemoval = true)";
                     }
                 }
             }
