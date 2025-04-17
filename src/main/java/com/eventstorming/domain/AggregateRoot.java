@@ -44,7 +44,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#if targetElement.isVO}}
     {{else}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
-        OrderItem item = new OrderItem(productName, quantity, this);
+        OrderItem item = new OrderItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
         items.add(item);
     }
 
