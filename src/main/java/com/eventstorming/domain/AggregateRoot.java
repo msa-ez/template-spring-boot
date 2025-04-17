@@ -40,7 +40,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#aggregateRoot.entities.relations}}
-    {{#isEntity aggregateRoot.entities.relations}}
+    {{#isEntity this}}
     {{#if targetElement.isVO}}
     {{else}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
