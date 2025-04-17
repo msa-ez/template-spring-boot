@@ -446,9 +446,11 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                                 return "@Enumerated(EnumType.STRING)"
                             }else{
                                 if(fields[i].targetElement.isVO){
-                                    return "@Embedded"    
+                                    return "@Embedded"
+                                    break;   
                                 }else{
                                     return "2"
+                                    break;
                                 }
                                 
                             }
