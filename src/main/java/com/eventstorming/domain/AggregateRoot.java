@@ -41,7 +41,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 
     {{#aggregateRoot}}
     {{#entities.relations}}
-    {{#isEntity relations}}
+    {{#isEntity this}}
     {{name}}
     public void add{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
