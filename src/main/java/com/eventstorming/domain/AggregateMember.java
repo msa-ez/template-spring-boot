@@ -46,7 +46,7 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
         this.{{nameCamelCase}} = {{nameCamelCase}};
         {{/if}}
         {{/fieldDescriptors}}
-        {{#incomingClassRefs}}this.{{#changeLower value.name}}{{/changeLower}} = {{#changeLower value.name}};{{/changeLower}}{{/incomingClassRefs}}
+        {{#incomingClassRefs}}this.{{#changeLower value.name}}{{/changeLower}} = {{#changeLower value.name}}{{/changeLower}};;{{/incomingClassRefs}}
     }
 
 
