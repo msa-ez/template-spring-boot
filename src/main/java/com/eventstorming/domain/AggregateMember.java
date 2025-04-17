@@ -29,9 +29,11 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     private {{{className}}} {{nameCamelCase}};
     {{/fieldDescriptors}}
 
-    {{#checkRelationType incomingClassRefs.relationType}}
+    {{#incomingClassRefs}}
+    {{#checkRelationType relationType}}
     {{/checkRelationType}}
-    @JoinColumn(name = "{{incomingClassRefs.value.name}}_id")
+    @JoinColumn(name = "{{value.name}}_id")
+    {{/incomingClassRefs}}
     private Order order;
 
 
