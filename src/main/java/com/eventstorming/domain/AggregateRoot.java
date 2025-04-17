@@ -40,8 +40,11 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/checkEntityField}}
     {{/aggregateRoot.fieldDescriptors}}
 
-    {{#isEntity aggregateRoot.entities.relations}}
-    {{#aggregateRoot.entities.relations}}
+    {{#commands}}
+    {{#if isRestRepository}}
+    {{else}}
+    {{#isEntity ../aggregateRoot.entities.relations}}
+    {{#../aggregateRoot.entities.relations}}
     {{#if targetElement}}
     {{#if targetElement.isVO}}
     {{else}}
@@ -69,8 +72,10 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/if}}
     {{else}}
     {{/if}}
-    {{/aggregateRoot.entities.relations}}
+    {{/../aggregateRoot.entities.relations}}
     {{/isEntity}}
+    {{/if}}
+    {{/commands}}
 
 {{#lifeCycles}}
     {{#isNotRelatedPolicy events}}
