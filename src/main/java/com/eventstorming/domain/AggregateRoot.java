@@ -41,6 +41,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 
     {{#isEntity aggregateRoot.entities.relations}}
     {{#aggregateRoot.entities.relations}}
+    {{#if targetElement.isVO}}
+    {{else}}
     {{name}}
     public void add{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
@@ -50,6 +52,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public void remove{{targetElement.namePascalCase}}({{targetElement.namePascalCase}} {{targetElement.nameCamelCase}}) {
         {{#changeLower name}}{{/changeLower}}.remove({{targetElement.nameCamelCase}});
     }
+    {{/if}}
     {{/aggregateRoot.entities.relations}}
     {{/isEntity}}
 
