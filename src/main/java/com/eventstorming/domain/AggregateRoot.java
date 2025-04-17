@@ -41,6 +41,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 
     {{#isEntity aggregateRoot.entities.relations}}
     {{#aggregateRoot.entities.relations}}
+    {{#if targetElement.isVO}}
+    {{else}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         OrderItem item = new OrderItem(productName, quantity, this);
         items.add(item);
@@ -50,6 +52,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public void removeItem(OrderItem item) {
         items.remove(item);
     }
+    {{/if}}
     {{/aggregateRoot.entities.relations}}
     {{/isEntity}}
 
