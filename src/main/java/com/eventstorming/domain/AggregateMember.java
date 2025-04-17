@@ -33,10 +33,17 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     {{#checkRelationType relationType}}
     {{/checkRelationType}}
     @JoinColumn(name = "{{#changeLower value.name}}{{/changeLower}}_id")
-    {{/incomingClassRefs}}
     private {{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}};
+    {{/incomingClassRefs}}
 
-    protected OrderItem() {
+    protected {{namePascalCase}}({{#fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/fieldDescriptors}}, {{#incomingClassRefs}}{{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}}{{/incomingClassRefs}}) {
+        {{#fieldDescriptors}}
+        {{#if isKey}}
+        {{else}}
+        this.{{nameCamelCase}} = {{nameCamelCase}};
+        {{/if}}
+        {{/fieldDescriptors}}
+        {{#incomingClassRefs}}this.{{#changeLower value.name}}{{/changeLower}} = {{#changeLower value.name}}{{/changeLower}}{{/incomingClassRefs}}
     }
 
     protected OrderItem(String productName, int quantity, Order order) {
