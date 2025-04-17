@@ -40,7 +40,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#isEntity aggregateRoot.entities.relations}}
-    public void addItem(String productName, int quantity) {
+    public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         OrderItem item = new OrderItem(productName, quantity, this);
         items.add(item);
     }
