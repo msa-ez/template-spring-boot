@@ -55,7 +55,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     }
 
     public List<{{targetElement.namePascalCase}}> get{{#changeUpper name}}{{/changeUpper}}() {
-        return Collections.unmodifiableList({{nameCamelCase}});
+        return Collections.unmodifiableList({{#changeLower name}}{{/changeLower}});
     }
     {{/if}}
     {{else}}
