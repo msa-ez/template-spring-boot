@@ -331,16 +331,20 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
     }
 });
 window.$HandleBars.registerHelper('isEntity', function (relation, options) {
-    for(var i = 0; i < relation.length; i ++ ){
-        if(relation){
-            if(!relation[i].targetElement.isVO){
-                return options.fn(this);
-            }else{
-                return options.inverse(this);
-            }
-        }
+    var validRelations = relation.filter(function(rel) {
+        return rel !== null && rel !== undefined;
+    });
+    
+    if(validRelations.length === 0) {
         return options.inverse(this);
     }
+    
+    for(var i = 0; i < validRelations.length; i++) {
+        if(!validRelations[i].targetElement.isVO) {
+            return options.fn(this);
+        }
+    }
+    return options.inverse(this);
 });
 
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
