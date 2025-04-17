@@ -50,7 +50,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public void remove{{targetElement.namePascalCase}}({{targetElement.namePascalCase}} {{targetElement.nameCamelCase}}) {
         {{#changeLower name}}{{/changeLower}}.remove({{targetElement.nameCamelCase}});
     }
-    {{/if}}
     {{/aggregateRoot.entities.relations}}
     {{/isEntity}}
 
