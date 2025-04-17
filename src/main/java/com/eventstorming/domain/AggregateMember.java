@@ -32,9 +32,18 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     {{#incomingClassRefs}}
     {{#checkRelationType relationType}}
     {{/checkRelationType}}
-    @JoinColumn(name = "{{#camelCase value.name}}_id")
+    @JoinColumn(name = "{{#changeLower value.name}}{{/changeLower}}_id")
     {{/incomingClassRefs}}
-    private Order order;
+    private {{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}};
+
+    protected OrderItem() {
+    }
+
+    protected OrderItem(String productName, int quantity, Order order) {
+        this.productName = productName;
+        this.quantity = quantity;
+        this.order = order;
+    }
 
 
 {{#operations}}
@@ -48,6 +57,20 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
 }
 
 <function>
+window.$HandleBars.registerHelper('changeUpper', function (name) {
+    if (!name || typeof name !== 'string' || name.length === 0) {
+        return '';
+    }
+    return name.charAt(0).toUpperCase() + name.slice(1);
+});
+
+window.$HandleBars.registerHelper('changeLower', function (name) {
+    if (!name || typeof name !== 'string' || name.length === 0) {
+        return '';
+    }
+    return name.charAt(0).toLowerCase() + name.slice(1);
+});
+
 window.$HandleBars.registerHelper('checkRelationType', function (type) {
     if(type == 'Composition'){
         return "@ManyToOne(fetch = FetchType.LAZY)"
