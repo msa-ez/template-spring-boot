@@ -411,7 +411,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
     }
 });
 
-window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, reltaion) {
+window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, relation) {
     var fields = []
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
@@ -436,8 +436,8 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                         return "@Embedded"
                     }
                 }else{
-                    if(reltaion){
-                        fields = reltaion.filter(field => field != null);
+                    if(relation){
+                        fields = relation.filter(field => field != null);
                         for(var i = 0; i< fields.length; i++){
                             if(fields[i].targetElement){
                                 if(className == fields[i].targetElement.namePascalCase  && fields[i].targetElement._type.endsWith("enum"))
