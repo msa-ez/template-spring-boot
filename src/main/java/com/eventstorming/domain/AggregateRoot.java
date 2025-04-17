@@ -421,7 +421,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
             if(className.includes("List")){
                 for(var i = 0; i < relation.length; i++){
                     if(!relation[i].targetElement._type.endsWith("enum")){
-                        if(elation[i].targetElement.isVO){
+                        if(relation[i].targetElement.isVO){
                             return "@ElementCollection"
                         }else{
                             return "1"
