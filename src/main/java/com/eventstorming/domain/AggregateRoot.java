@@ -332,11 +332,14 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
 });
 window.$HandleBars.registerHelper('isEntity', function (relation, options) {
     for(var i = 0; i < relation.length; i ++ ){
-        if(!relation[i].targetElement.isVO){
-            return options.fn(this);
-        }else{
-            return options.inverse(this);
+        if(relation){
+            if(!relation[i].targetElement.isVO){
+                return options.fn(this);
+            }else{
+                return options.inverse(this);
+            }
         }
+        return options.inverse(this);
     }
 });
 
