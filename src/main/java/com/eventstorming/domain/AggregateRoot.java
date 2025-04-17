@@ -39,6 +39,21 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     private {{{className}}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
+    {{#aggregateRoot.entities.relations}}
+    {{if targetElement.isVO}}
+    {{else}}
+    public void addItem(String productName, int quantity) {
+        OrderItem item = new OrderItem(productName, quantity, this);
+        items.add(item);
+    }
+
+    // 하위 엔티티 삭제 메소드
+    public void removeItem(OrderItem item) {
+        items.remove(item);
+    }
+    {{/if}}
+    {{/aggregateRoot.entities.relations}}
+
 {{#lifeCycles}}
     {{#isNotRelatedPolicy events}}
     {{annotation}}
