@@ -423,11 +423,15 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                 rel && rel.name === name && !rel.targetElement._type.endsWith("enum"));
                 
             if (foundRelation) {
+                var aggName = foundRelation.sourceElement.name;
+                aggName = aggName.charAt(0).toLowerCase() + aggName.slice(1);
                 if (foundRelation.targetElement.isVO) {
                     return "@ElementCollection";
                 } else {
-                    return "1";
+                    return "@OneToMany(mappedBy = `"{aggName}"`, cascade = CascadeType.ALL, orphanRemoval = true)";
                 }
+            }else{
+                return "@Enumerated(EnumType.STRING)";
             }
         } else {
             if (isVO === true) {
@@ -441,6 +445,9 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                 
                 const foundField = fields.find(field => 
                     field && field.name === name && field.targetElement);
+
+                var aggName = foundField.sourceElement.name;
+                aggName = aggName.charAt(0).toLowerCase() + aggName.slice(1);
                     
                 if (foundField) {
                     if (className === foundField.targetElement.namePascalCase && 
@@ -449,7 +456,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                     } else if (foundField.targetElement.isVO) {
                         return "@Embedded";
                     } else {
-                        return "2";
+                        return "@OneToOne(mappedBy = `"{aggName}"`, cascade = CascadeType.ALL, orphanRemoval = true)";
                     }
                 }
             }
