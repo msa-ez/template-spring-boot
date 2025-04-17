@@ -333,20 +333,18 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
     }
 });
 window.$HandleBars.registerHelper('isEntity', function (relation, options) {
-    var validRelations = relation.filter(function(rel) {
-        return rel !== null && rel !== undefined;
+    var entityRelations = relation.filter(function(rel) {
+        return rel !== null && 
+               rel !== undefined && 
+               rel.targetElement && 
+               !rel.targetElement._type.endsWith('enum') && 
+               !rel.targetElement.isVO;
     });
     
-    if(validRelations.length === 0) {
+    if(entityRelations.length > 0) {
+        return options.fn(this);
+    } else {
         return options.inverse(this);
-    }
-    
-    for(var i = 0; i < validRelations.length; i++) {
-        if(!validRelations[i].targetElement._type.endsWith('enum') && !validRelations[i].targetElement.isVO) {
-            return options.fn(this);
-        }else{
-            return options.inverse(this);
-        }
     }
 });
 
