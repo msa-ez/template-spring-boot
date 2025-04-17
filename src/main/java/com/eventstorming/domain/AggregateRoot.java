@@ -49,9 +49,13 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
         {{#changeLower name}}{{/changeLower}}.add({{targetElement.nameCamelCase}});
     }
-    // 하위 엔티티 삭제 메소드
+
     public void remove{{targetElement.namePascalCase}}({{targetElement.namePascalCase}} {{targetElement.nameCamelCase}}) {
         {{#changeLower name}}{{/changeLower}}.remove({{targetElement.nameCamelCase}});
+    }
+
+    public List<{{targetElement.namePascalCase}}> get{{namePascalCase}}() {
+        return Collections.unmodifiableList({{nameCamelCase}});
     }
     {{/if}}
     {{else}}
