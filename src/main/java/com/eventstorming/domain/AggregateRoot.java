@@ -39,8 +39,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     private {{{className}}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
-    {{#aggregateRoot.entities.relations}}
-    {{#isEntity this}}
+    {{#aggregateRoot.entities}}
+    {{#isEntity relations}}
     {{#if targetElement.isVO}}
     {{else}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
@@ -54,7 +54,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     }
     {{/if}}
     {{/isEntity}}
-    {{/aggregateRoot.entities.relations}}
+    {{/aggregateRoot.entities}}
 
 {{#lifeCycles}}
     {{#isNotRelatedPolicy events}}
