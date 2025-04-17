@@ -412,55 +412,50 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
 });
 
 window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, relation) {
-    var fields = []
     try {
-        if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
-           className==="Double" || className==="Double" || className==="Long" || className==="Date" || className ==="BigDecimal"){
-                return
-        }else {
-            if(className.includes("List")){
-                for(var i = 0; i < relation.length; i++){
-                    if(!relation[i].targetElement._type.endsWith("enum")){
-                        if(relation[i].targetElement.isVO){
-                            return "@ElementCollection"
-                            break;
-                        }else{
-                            return "1"
-                            break;
-                        }
-                    }
+        if (className === "Integer" || className === "String" || className === "Boolean" || className === "Float" || 
+           className === "Double" || className === "Long" || className === "Date" || className === "BigDecimal") {
+            return;
+        }
+        
+        if (className.includes("List")) {
+            const foundRelation = relation.find(rel => 
+                rel && rel.name === name && !rel.targetElement._type.endsWith("enum"));
+                
+            if (foundRelation) {
+                if (foundRelation.targetElement.isVO) {
+                    return "@ElementCollection";
+                } else {
+                    return "1";
                 }
-            }else{
-                if(isVO == true){
-                    if(isKey == true){
-                        return "@EmbeddedId"
-                    }else{
-                        return "@Embedded"
-                    }
-                }else{
-                    if(relation){
-                        fields = relation.filter(field => field != null);
-                        for(var i = 0; i< fields.length; i++){
-                            if(fields[i].targetElement){
-                                if(className == fields[i].targetElement.namePascalCase  && fields[i].targetElement._type.endsWith("enum"))
-                                return "@Enumerated(EnumType.STRING)"
-                            }else{
-                                if(fields[i].targetElement.isVO){
-                                    return "@Embedded"
-                                    break;   
-                                }else{
-                                    return "2"
-                                    break;
-                                }
-                                
-                            }
-                        }
+            }
+        } else {
+            if (isVO === true) {
+                if (isKey === true) {
+                    return "@EmbeddedId";
+                } else {
+                    return "@Embedded";
+                }
+            } else if (relation) {
+                const fields = relation.filter(field => field != null);
+                
+                const foundField = fields.find(field => 
+                    field && field.name === name && field.targetElement);
+                    
+                if (foundField) {
+                    if (className === foundField.targetElement.namePascalCase && 
+                        foundField.targetElement._type.endsWith("enum")) {
+                        return "@Enumerated(EnumType.STRING)";
+                    } else if (foundField.targetElement.isVO) {
+                        return "@Embedded";
+                    } else {
+                        return "2";
                     }
                 }
             }
         }
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 });
 
