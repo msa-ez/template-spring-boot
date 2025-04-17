@@ -342,9 +342,8 @@ window.$HandleBars.registerHelper('isEntity', function (relation, options) {
     var hasEntity = false;
     
     for(var i = 0; i < validRelations.length; i++) {
-        if(!validRelations[i].targetElement.isVO) {
+        if(!validRelations[i].targetElement._type.endsWith("enum") && !validRelations[i].targetElement.isVO) {
             hasEntity = true;
-            break; 
         }
     }
     return hasEntity ? options.fn(this) : options.inverse(this);
