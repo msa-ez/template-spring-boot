@@ -30,9 +30,8 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     {{/fieldDescriptors}}
 
     {{#checkRelationType incomingClassRefs.relationType}}
-    @ManyToOne(fetch = FetchType.LAZY)
     {{/checkRelationType}}
-    @JoinColumn(name = "{{camelCase incomingClassRefs.value.name}}_id")
+    @JoinColumn(name = "{{incomingClassRefs.value.name}}_id")
     private Order order;
 
 
