@@ -54,7 +54,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
         return Collections.unmodifiableList({{#changeLower name}}{{/changeLower}});
     }
 
-    public void update{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
+    public void update{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/targetElement.fieldDescriptors}}) {
         for ({{targetElement.namePascalCase}} item : {{#changeLower name}}{{/changeLower}}) {
             if (item.{{#targetElement.fieldDescriptors}}{{#if isKey}}get{{namePascalCase}}().equals({{nameCamelCase}}){{/if}}{{/targetElement.fieldDescriptors}}) {
                 item.update({{#targetElement.fieldDescriptors}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}});
