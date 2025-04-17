@@ -32,7 +32,7 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     {{#incomingClassRefs}}
     {{#checkRelationType relationType}}
     {{/checkRelationType}}
-    @JoinColumn(name = "{{value.name}}_id")
+    @JoinColumn(name = "{{camelCase value.name}}_id")
     {{/incomingClassRefs}}
     private Order order;
 
