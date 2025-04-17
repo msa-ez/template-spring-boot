@@ -38,7 +38,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
     {{#checkEntityField className nameCamelCase isVO}}
     {{/checkEntityField}}
-    private {{className}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#isEntity aggregateRoot.entities.relations}}
