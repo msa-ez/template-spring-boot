@@ -1,6 +1,7 @@
 forEach: Entity
 fileName: {{namePascalCase}}Repository.java
 path: {{boundedContext.name}}/{{{options.packagePath}}}/domain
+except: true
 ---
 package {{options.package}}.domain;
 
