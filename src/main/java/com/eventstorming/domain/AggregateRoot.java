@@ -336,7 +336,7 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
     }
 });
 window.$HandleBars.registerHelper('checkEntityField', function (type, name, isVO) {
-    if(className.includes("List<") && !isVO){
+    if(type.includes("List<") && !isVO){
         return "private" + " " + type + " " + name + " " + "= " + "new java.util.ArrayList<>();";
     }else{
         return "private" + " " + type + " " + name + ";";
