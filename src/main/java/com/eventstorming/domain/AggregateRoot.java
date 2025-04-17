@@ -339,12 +339,15 @@ window.$HandleBars.registerHelper('isEntity', function (relation, options) {
         return options.inverse(this);
     }
     
+    var hasEntity = false;
+    
     for(var i = 0; i < validRelations.length; i++) {
         if(!validRelations[i].targetElement.isVO) {
-            return options.fn(this);
+            hasEntity = true;
+            break; 
         }
     }
-    return options.inverse(this);
+    return hasEntity ? options.fn(this) : options.inverse(this);
 });
 
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
