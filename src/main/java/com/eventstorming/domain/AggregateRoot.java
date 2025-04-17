@@ -338,7 +338,6 @@ window.$HandleBars.registerHelper('isEntity', function (relation, options) {
             return options.inverse(this);
         }
     }
-    return "";
 });
 
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
