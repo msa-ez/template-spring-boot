@@ -35,7 +35,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/isKey}}{{/isVO}}
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
-    {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
+    {{#checkFieldType className isVO nameCamelCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
     private {{{className}}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
@@ -411,7 +411,7 @@ window.$HandleBars.registerHelper('isPrimitive', function (className) {
     }
 });
 
-window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, enumField) {
+window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, name, isKey, reltaion) {
     var fields = []
     try {
         if (className==="Integer" || className==="String" || className==="Boolean" || className==="Float" || 
@@ -419,7 +419,15 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                 return
         }else {
             if(className.includes("List")){
-                return "@ElementCollection"
+                for(var i = 0; i < relation.length; i++){
+                    if(!relation[i].targetElement._type.endsWith("enum")){
+                        if(elation[i].targetElement.isVO){
+                            return "@ElementCollection"
+                        }else{
+                            "@OneToMany(mappedBy = "${name}", cascade = CascadeType.ALL, orphanRemoval = true)"
+                        }
+                    }
+                }
             }else{
                 if(isVO == true){
                     if(isKey == true){
@@ -428,14 +436,19 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                         return "@Embedded"
                     }
                 }else{
-                    if(enumField){
-                        fields = enumField.filter(field => field != null);
+                    if(reltaion){
+                        fields = reltaion.filter(field => field != null);
                         for(var i = 0; i< fields.length; i++){
                             if(fields[i].targetElement){
                                 if(className == fields[i].targetElement.namePascalCase  && fields[i].targetElement._type.endsWith("enum"))
                                 return "@Enumerated(EnumType.STRING)"
                             }else{
-                                return "@Embedded"
+                                if(fields[i].targetElement.isVO){
+                                    return "@Embedded"    
+                                }else{
+                                    return @OneToOne(mappedBy = "${name}", cascade = CascadeType.ALL, orphanRemoval = true)
+                                }
+                                
                             }
                         }
                     }
