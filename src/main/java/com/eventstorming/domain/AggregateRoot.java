@@ -44,8 +44,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#if targetElement.isVO}}
     {{else}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
-        OrderItem item = new OrderItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
-        items.add(item);
+        {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
+        {{#changeLower name}}{{/changeLower}}.add({{targetElement.nameCamelCase}});
     }
 
     // 하위 엔티티 삭제 메소드
@@ -331,6 +331,12 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
     }else{
         return options.inverse(this);
     }
+});
+window.$HandleBars.registerHelper('changeLower', function (name) {
+    if (!name || typeof name !== 'string' || name.length === 0) {
+        return '';
+    }
+    return name.charAt(0).toLowerCase() + name.slice(1);
 });
 window.$HandleBars.registerHelper('isEntity', function (relation, options) {
     var entityRelations = relation.filter(function(rel) {
