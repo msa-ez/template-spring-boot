@@ -35,6 +35,10 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     private {{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}};
     {{/incomingClassRefs}}
 
+    protected {{namePascalCase}}() {
+        
+    }
+    
     protected {{namePascalCase}}({{#fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/fieldDescriptors}}, {{#incomingClassRefs}}{{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}}{{/incomingClassRefs}}) {
         {{#fieldDescriptors}}
         {{#if isKey}}
@@ -42,13 +46,7 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
         this.{{nameCamelCase}} = {{nameCamelCase}};
         {{/if}}
         {{/fieldDescriptors}}
-        {{#incomingClassRefs}}this.{{#changeLower value.name}}{{/changeLower}} = {{#changeLower value.name}}{{/changeLower}}{{/incomingClassRefs}}
-    }
-
-    protected OrderItem(String productName, int quantity, Order order) {
-        this.productName = productName;
-        this.quantity = quantity;
-        this.order = order;
+        {{#incomingClassRefs}}this.{{#changeLower value.name}}{{/changeLower}} = {{#changeLower value.name}};{{/changeLower}}{{/incomingClassRefs}}
     }
 
 
