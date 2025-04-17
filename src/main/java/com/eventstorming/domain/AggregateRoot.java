@@ -43,6 +43,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#aggregateRoot.entities.relations}}
     {{#if targetElement.isVO}}
     {{else}}
+    {{name}}
     public void addItem({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
         {{#changeLower name}}{{/changeLower}}.add({{targetElement.nameCamelCase}});
