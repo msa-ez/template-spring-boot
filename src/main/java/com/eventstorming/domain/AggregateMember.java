@@ -29,6 +29,13 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     private {{{className}}} {{nameCamelCase}};
     {{/fieldDescriptors}}
 
+    {{#checkRelationType incomingClassRefs.relationType}}
+    @ManyToOne(fetch = FetchType.LAZY)
+    {{/checkRelationType}}
+    @JoinColumn(name = "{{camelCase incomingClassRefs.value.name}}_id")
+    private Order order;
+
+
 {{#operations}}
     {{#isOverride}}
     @Override
@@ -40,6 +47,14 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
 }
 
 <function>
+window.$HandleBars.registerHelper('checkRelationType', function (type) {
+    if(type == 'Composition'){
+        return "@ManyToOne(fetch = FetchType.LAZY)"
+    }else{
+        return "@OneToOne(fetch = FetchType.LAZY)"
+    }
+});
+
 window.$HandleBars.registerHelper('checkDateType', function (fieldDescriptors) {
     for(var i = 0; i < fieldDescriptors.length; i ++ ){
         if(fieldDescriptors[i] && fieldDescriptors[i].className == 'Date'){
