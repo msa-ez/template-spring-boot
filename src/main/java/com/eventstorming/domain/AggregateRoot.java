@@ -446,7 +446,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                                 if(fields[i].targetElement.isVO){
                                     return "@Embedded"    
                                 }else{
-                                    return @OneToOne(mappedBy = "${name}", cascade = CascadeType.ALL, orphanRemoval = true)
+                                    return @OneToOne(mappedBy = `"${name}"`, cascade = CascadeType.ALL, orphanRemoval = true)
                                 }
                                 
                             }
