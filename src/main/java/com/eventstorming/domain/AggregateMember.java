@@ -30,8 +30,7 @@ public class {{namePascalCase}} {{#checkExtends relations namePascalCase}}{{/che
     {{/fieldDescriptors}}
 
     {{#incomingClassRefs}}
-    {{#checkRelationType relationType}}
-    {{/checkRelationType}}
+    {{#checkRelationType relationType}}{{/checkRelationType}}
     @JoinColumn(name = "{{#changeLower value.name}}{{/changeLower}}_id")
     private {{#changeUpper value.name}}{{/changeUpper}} {{#changeLower value.name}}{{/changeLower}};
     {{/incomingClassRefs}}
