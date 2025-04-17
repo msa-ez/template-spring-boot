@@ -40,8 +40,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#isEntity aggregateRoot.entities.relations}}
-    {{#if targetElement.isVO}}
-    {{else}}
     public void addItem(String productName, int quantity) {
         OrderItem item = new OrderItem(productName, quantity, this);
         items.add(item);
@@ -51,7 +49,6 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public void removeItem(OrderItem item) {
         items.remove(item);
     }
-    {{/if}}
     {{/isEntity}}
 
 {{#lifeCycles}}
@@ -339,14 +336,12 @@ window.$HandleBars.registerHelper('isEntity', function (relation, options) {
         return options.inverse(this);
     }
     
-    var hasEntity = false;
-    
     for(var i = 0; i < validRelations.length; i++) {
-        if(!validRelations[i].targetElement._type.endsWith("enum") && !validRelations[i].targetElement.isVO) {
-            hasEntity = true;
+        if(!validRelations[i].targetElement.isVO) {
+            return options.fn(this);
         }
     }
-    return hasEntity ? options.fn(this) : options.inverse(this);
+    return options.inverse(this);
 });
 
 window.$HandleBars.registerHelper('checkClassType', function (fieldDescriptors) {
