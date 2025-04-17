@@ -424,7 +424,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                         if(elation[i].targetElement.isVO){
                             return "@ElementCollection"
                         }else{
-                            "@OneToMany(mappedBy = `"${name}"`, cascade = CascadeType.ALL, orphanRemoval = true)"
+                            return "1"
                         }
                     }
                 }
@@ -446,7 +446,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                                 if(fields[i].targetElement.isVO){
                                     return "@Embedded"    
                                 }else{
-                                    return @OneToOne(mappedBy = `"${name}"`, cascade = CascadeType.ALL, orphanRemoval = true)
+                                    return "2"
                                 }
                                 
                             }
