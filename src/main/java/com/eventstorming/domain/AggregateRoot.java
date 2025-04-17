@@ -342,9 +342,8 @@ window.$HandleBars.registerHelper('isEntity', function (relation, options) {
     }
     
     for(var i = 0; i < validRelations.length; i++) {
-        if(!validRelations[i].targetElement.isVO) {
+        if(!validRelations[i].targetElement._type.endsWith('enum') && !validRelations[i].targetElement.isVO) {
             return options.fn(this);
-            break;
         }else{
             return options.inverse(this);
         }
