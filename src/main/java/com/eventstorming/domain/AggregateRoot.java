@@ -36,7 +36,9 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
     {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
-    private {{{className}}} {{nameCamelCase}};
+    {{#checkEntityField className nameCamelCase isVO}}
+    {{/checkEntityField}}
+    private {{className}} {{nameCamelCase}};
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#isEntity aggregateRoot.entities.relations}}
@@ -332,6 +334,13 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
         }
     }else{
         return options.inverse(this);
+    }
+});
+window.$HandleBars.registerHelper('checkEntityField', function (class, name) {
+    if(className.includes("List<")){
+        return "private" + " " + class + " " + name + " " + "= " + "new java.util.ArrayList<>();";
+    }else{
+        return "private" + " " + class + " " + name + ";";
     }
 });
 window.$HandleBars.registerHelper('changeLower', function (name) {
