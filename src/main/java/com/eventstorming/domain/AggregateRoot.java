@@ -424,7 +424,7 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                         if(elation[i].targetElement.isVO){
                             return "@ElementCollection"
                         }else{
-                            return `"@OneToMany(mappedBy = "${name}", cascade = CascadeType.ALL, orphanRemoval = true)"`
+                            return `@OneToMany(mappedBy = "${name}", cascade = CascadeType.ALL, orphanRemoval = true)`
                         }
                     }
                 }
