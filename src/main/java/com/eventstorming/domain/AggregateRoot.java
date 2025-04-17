@@ -336,11 +336,11 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
         return options.inverse(this);
     }
 });
-window.$HandleBars.registerHelper('checkEntityField', function (class, name, isVO) {
+window.$HandleBars.registerHelper('checkEntityField', function (type, name, isVO) {
     if(className.includes("List<") && !isVO){
-        return "private" + " " + class + " " + name + " " + "= " + "new java.util.ArrayList<>();";
+        return "private" + " " + type + " " + name + " " + "= " + "new java.util.ArrayList<>();";
     }else{
-        return "private" + " " + class + " " + name + ";";
+        return "private" + " " + type + " " + name + ";";
     }
 });
 window.$HandleBars.registerHelper('changeLower', function (name) {
