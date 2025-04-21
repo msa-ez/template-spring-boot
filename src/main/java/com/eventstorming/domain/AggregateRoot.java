@@ -18,6 +18,7 @@ import java.util.Date;
 import java.time.LocalDate;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collections;
 {{#checkBigDecimal aggregateRoot.fieldDescriptors}}{{/checkBigDecimal}}
 
 @Entity
@@ -48,6 +49,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#if targetElement}}
     {{#if targetElement.isVO}}
     {{else}}
+    {{#if isEnum targetElement._type}}
     public void add{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
         {{#changeLower name}}{{/changeLower}}.add({{targetElement.nameCamelCase}});
@@ -69,6 +71,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     public void remove{{targetElement.namePascalCase}}({{targetElement.namePascalCase}} {{targetElement.nameCamelCase}}) {
         {{#changeLower name}}{{/changeLower}}.remove({{targetElement.nameCamelCase}});
     }
+    {{/isEnum}}
     {{/if}}
     {{else}}
     {{/if}}
@@ -317,6 +320,13 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 //>>> DDD / Aggregate Root
 
 <function>
+window.$HandleBars.registerHelper('isEnum', function (type, options) {
+    if(type.includes("enum")){
+        return options.inverse(this);
+    }else{
+        return options.fn(this);
+    }
+});
 window.$HandleBars.registerHelper('checkEqualBoundedContext', function (source, target, options) {
     var sourceBC = '';
     var targetBC = '';
