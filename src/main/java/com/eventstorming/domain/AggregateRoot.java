@@ -28,7 +28,6 @@ import java.util.Collections;
 //<<< DDD / Aggregate Root
 public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations namePascalCase}}{{/checkExtends}} {
 
-
     {{#aggregateRoot.fieldDescriptors}}
     {{^isVO}}
     {{#isKey}}
@@ -39,8 +38,8 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
     {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
-        {{#checkEntityField className nameCamelCase isVO}}
-        {{/checkEntityField}}
+    {{#checkEntityField className nameCamelCase isVO}}
+    {{/checkEntityField}}
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#commands}}
