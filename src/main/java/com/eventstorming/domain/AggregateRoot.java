@@ -30,17 +30,17 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
 
 
     {{#aggregateRoot.fieldDescriptors}}
-{{^isVO}}
-{{#isKey}}
-@Id
-{{#checkClassType ../aggregateRoot.fieldDescriptors}}{{/checkClassType}}
-{{/isKey}}
-{{/isVO}}
+    {{^isVO}}
+    {{#isKey}}
+    @Id
+    {{#checkClassType ../aggregateRoot.fieldDescriptors}}{{/checkClassType}}
+    {{/isKey}}
+    {{/isVO}}
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
-    {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
-    {{#checkEntityField className nameCamelCase isVO}}
-    {{/checkEntityField}}
+        {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
+        {{#checkEntityField className nameCamelCase isVO}}
+        {{/checkEntityField}}
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#commands}}
