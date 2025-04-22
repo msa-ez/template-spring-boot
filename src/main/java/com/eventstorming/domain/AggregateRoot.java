@@ -38,9 +38,9 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{/isVO}}
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
-        {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
-        {{#checkEntityField className nameCamelCase isVO}}
-        {{/checkEntityField}}
+    {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
+    {{#checkEntityField className nameCamelCase isVO}}
+    {{/checkEntityField}}
     {{/aggregateRoot.fieldDescriptors}}
 
     {{#commands}}
@@ -52,7 +52,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#if targetElement.isVO}}
     {{else}}
     {{#isEnum targetElement._type}}
-    
+
     public void add{{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{className}} {{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}) {
         {{targetElement.namePascalCase}} {{targetElement.nameCamelCase}} = new {{targetElement.namePascalCase}}({{#targetElement.fieldDescriptors}}{{#if isKey}}{{else}}{{nameCamelCase}}{{^@last}}, {{/@last}}{{/if}}{{/targetElement.fieldDescriptors}}, this);
         {{#changeLower name}}{{/changeLower}}.add({{targetElement.nameCamelCase}});
