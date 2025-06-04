@@ -518,6 +518,8 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
             }else{
                 if(className.includes("List<")){
                     return "@ElementCollection";
+                }else{
+                    return "@Enumerated(EnumType.STRING)";
                 }
             }
         } else {
