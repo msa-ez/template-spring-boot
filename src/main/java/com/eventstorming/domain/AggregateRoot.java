@@ -38,7 +38,7 @@ public class {{namePascalCase}} {{#checkExtends aggregateRoot.entities.relations
     {{#isLob}}@Lob{{/isLob}}
     {{#if (isPrimitive className)}}{{#isList}}{{/isList}}{{/if}}
     {{#checkFieldType className isVO namePascalCase isKey ../aggregateRoot.entities.relations}}{{/checkFieldType}}
-    {{#checkEntityField className nameCamelCase isVO}}
+    {{#checkEntityField className nameCamelCase isVO this}}
     {{/checkEntityField}}
     {{/aggregateRoot.fieldDescriptors}}
 
@@ -365,7 +365,7 @@ window.$HandleBars.registerHelper('isNotRelatedPolicy', function (event, options
         return options.inverse(this);
     }
 });
-window.$HandleBars.registerHelper('checkEntityField', function (type, name, isVO) {
+window.$HandleBars.registerHelper('checkEntityField', function (type, name, isVO, relation) {
     if(type.includes("List<") && !isVO){
         return "private" + " " + type + " " + name + " " + "= " + "new java.util.ArrayList<>();";
     }else{
