@@ -516,7 +516,9 @@ window.$HandleBars.registerHelper('checkFieldType', function (className, isVO, n
                     return "@OneToMany(mappedBy = \"" + aggName + "\", cascade = CascadeType.ALL, orphanRemoval = true)";
                 }
             }else{
-                return "@Enumerated(EnumType.STRING)";
+                if(className.includes("List<")){
+                    return "@ElementCollection";
+                }
             }
         } else {
             if (isVO === true) {
