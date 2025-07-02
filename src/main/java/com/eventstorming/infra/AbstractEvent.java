@@ -11,7 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.MimeTypeUtils;
 
@@ -60,7 +60,7 @@ public class AbstractEvent {
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
 
             @Override
-            public void afterCompletion(int status) {
+            public void afterCommit() {
                 AbstractEvent.this.publish();
             }
         });
