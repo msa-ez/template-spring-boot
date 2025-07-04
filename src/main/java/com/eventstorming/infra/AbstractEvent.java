@@ -56,14 +56,15 @@ public class AbstractEvent {
     }
 
 
-    public void publishAfterCommit(){
-        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
-
-            @Override
-            public void afterCommit() {
-                AbstractEvent.this.publish();
+    public void publishAfterCommit() {
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    AbstractEvent.this.publish();
+                }
             }
-        });
+        );
     }
 
 
